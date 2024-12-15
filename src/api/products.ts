@@ -24,6 +24,17 @@ export async function fetchInitialProducts(): Promise<Products[]> {
 // }
 
 // ⬇️ Filtrar productos
+// export async function filterProducts(filter: ProductsFilter): Promise<{ Products[] }> {
+//   try {
+//     const response = await axios.post('/api/products/filter', {filter} );
+//     console.log("Filter data", response);
+//     return response.data; // Asegúrate de que `response.data` contenga los datos esperados
+//   } catch (error) {
+//     console.error('Error filtering products:', error);
+//     throw new Error('Could not filter products');
+//   }
+// }
+
 export async function filterProducts(filter: ProductsFilter): Promise<Products[]> {
   try {
     const response = await axios.post('/api/products/filter', filter);
@@ -45,7 +56,6 @@ export async function filterProducts(filter: ProductsFilter): Promise<Products[]
     throw new Error('Could not filter products');
   }
 }
-
 
 
 
