@@ -67,9 +67,7 @@ export default function ProductFilterDrawer({
       case 'categories':
         if (filter.categories.some((item) => item === params)) {
           setFilter({ ...filter, categories: filter.categories.filter((item) => item !== params) });
-        } else if (filter.categories.some((item) => item === 'all') || params === 'all') {
-          setFilter({ ...filter, categories: [params] });
-        } else {
+        }  else {
           setFilter({ ...filter, categories: [...filter.categories, params] });
         }
 

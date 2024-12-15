@@ -13,7 +13,7 @@ const SortOptions: SortOptionsProps[] = [
     label: 'Precio: Bajo a Alto'
   },
   {
-    value: 'Popularidad',
+    value: 'rating',
     label: 'Popularidad'
   },
   {

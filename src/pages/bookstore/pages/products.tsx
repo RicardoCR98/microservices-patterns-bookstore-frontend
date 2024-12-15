@@ -116,21 +116,37 @@ useEffect(() => {
   // Estados para el filtro
   const initialState: ProductsFilter = {
     search: '',
-    sort: 'low',
+    sort: '',
     gender: [],
-    categories: ['all'],
+    categories: [],
     // colors: [],
     price: '',
     rating: 0
   };
   const [filter, setFilter] = useState(initialState);
 
+  function normalizeFilter(filter: ProductsFilter): ProductsFilter {
+    return Object.fromEntries(
+      Object.entries(filter).map(([key, value]) => {
+        if (value === '' || (Array.isArray(value) && value.length === 0) || value === 0) {
+          return [key, null];
+        }
+        return [key, value];
+      })
+    ) as ProductsFilter; 
+  }
+  
+  
   useEffect(() => {
     async function fetchFilteredProducts() {
       try {
         setLoading(true);
-        const response = await filterProducts(filter);
-        setProducts(response);
+        const normalizedFilter = normalizeFilter(filter) ; // Convertir vacíos a null
+        console.log('Filtro normalizado enviado al backend:', normalizedFilter);
+  
+        const response = await filterProducts(normalizedFilter);
+        console.log('Respuesta del backend:', response);
+        setProducts(response.data);
       } catch (error) {
         console.error('Error filtering products:', error);
       } finally {

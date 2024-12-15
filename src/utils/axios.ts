@@ -40,13 +40,23 @@ axiosServices.interceptors.request.use(
 axiosServices.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response.status === 401 && !window.location.href.includes('/login')) {
-      window.location.pathname = '/mantenimiento/500';
+    // Verifica si error.response existe antes de acceder a status
+    if (error.response) {
+      if (error.response.status === 401 && !window.location.href.includes('/login')) {
+        window.location.pathname = '/mantenimiento/500';
+      }
+      return Promise.reject(error.response.data || 'Wrong Services');
+    } else {
+      // Manejar errores sin response (por ejemplo, problemas de red)
+      console.error('Error sin respuesta del servidor:', error.message);
+      return Promise.reject('No response from server');
     }
-    return Promise.reject((error.response && error.response.data) || 'Wrong Services');
   }
 );
+
 export default axiosServices;
+
+
 
 // ==============================|| FETCHER FUNCTIONS ||============================== //
 

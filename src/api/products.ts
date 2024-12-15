@@ -24,38 +24,38 @@ export async function fetchInitialProducts(): Promise<Products[]> {
 // }
 
 // ⬇️ Filtrar productos
-// export async function filterProducts(filter: ProductsFilter): Promise<{ Products[] }> {
-//   try {
-//     const response = await axios.post('/api/products/filter', {filter} );
-//     console.log("Filter data", response);
-//     return response.data; // Asegúrate de que `response.data` contenga los datos esperados
-//   } catch (error) {
-//     console.error('Error filtering products:', error);
-//     throw new Error('Could not filter products');
-//   }
-// }
-
-export async function filterProducts(filter: ProductsFilter): Promise<Products[]> {
+export async function filterProducts(filter: ProductsFilter): Promise<{ data: Products[] }> {
   try {
-    const response = await axios.post('/api/products/filter', filter);
-
-    // Ajusta dependiendo de la estructura que devuelva el backend
-    console.log("Filter response", response.data);
-
-    if (Array.isArray(response.data)) {
-      // Si el backend devuelve directamente un array
-      return response.data;
-    } else if (response.data?.data) {
-      // Si el backend devuelve un objeto con "data"
-      return response.data.data;
-    } else {
-      throw new Error('Unexpected response structure');
-    }
+    const response = await axios.post('/api/products/filter', filter );
+    console.log('Respuesta cruda del backend:', response.data);
+    return response.data; // Asegúrate de que `response.data` contenga los datos esperados
   } catch (error) {
     console.error('Error filtering products:', error);
     throw new Error('Could not filter products');
   }
 }
+
+// export async function filterProducts(filter: ProductsFilter): Promise<Products[]> {
+//   try {
+//     const response = await axios.post('/api/products/filter', filter);
+
+//     // Ajusta dependiendo de la estructura que devuelva el backend
+//     console.log("Filter response", response.data);
+
+//     if (Array.isArray(response.data)) {
+//       // Si el backend devuelve directamente un array
+//       return response.data;
+//     } else if (response.data?.data) {
+//       // Si el backend devuelve un objeto con "data"
+//       return response.data.data;
+//     } else {
+//       throw new Error('Unexpected response structure');
+//     }
+//   } catch (error) {
+//     console.error('Error filtering products:', error);
+//     throw new Error('Could not filter products');
+//   }
+// }
 
 
 

@@ -37,29 +37,36 @@ function Gender({ gender, handelFilter }: { gender: string[]; handelFilter: (typ
           <Box sx={{ pl: 0.5 }}>
             <Stack>
               <FormControlLabel
-                control={<Checkbox checked={gender.some((item) => item === 'male')} />}
-                onChange={() => handelFilter('gender', 'male')}
-                label="Male"
+                control={<Checkbox checked={gender.some((item) => item === 'AVENTURA')} />}
+                onChange={() => handelFilter('gender', 'AVENTURA')}
+                label="Aventura"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox checked={gender.some((item) => item === 'ROMANCE')} onChange={() => handelFilter('gender', 'ROMANCE')} />
+                }
+                label="Romance"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox checked={gender.some((item) => item === 'SUSPENSO')} onChange={() => handelFilter('gender', 'SUSPENSO')} />
+                }
+                label="Suspenso"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox checked={gender.some((item) => item === 'FANTASIA')} onChange={() => handelFilter('gender', 'FANTASIA')} />
+                }
+                label="Fantasía"
               />
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={gender.some((item) => item === 'female')}
-                    onChange={() => handelFilter('gender', 'female')}
-                    color="secondary"
+                    checked={gender.some((item) => item === 'CIENCIA FICCION')}
+                    onChange={() => handelFilter('gender', 'CIENCIA_FICCION')}
                   />
                 }
-                label="Female"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={gender.some((item) => item === 'kids')}
-                    onChange={() => handelFilter('gender', 'kids')}
-                    color="error"
-                  />
-                }
-                label="Kids"
+                label="Ciencia Ficción"
               />
             </Stack>
           </Box>
@@ -89,34 +96,44 @@ function Categories({ categories, handelFilter }: { categories: string[]; handel
           <Box sx={{ pl: 0.5 }}>
             <Stack>
               <FormControlLabel
-                control={<Checkbox checked={categories.some((item) => item === 'all')} />}
-                onChange={() => handelFilter('categories', 'all')}
-                label="All"
+                control={<Checkbox checked={categories.some((item) => item === 'FICCION')} />}
+                onChange={() => handelFilter('categories', 'FICCION')}
+                label="Ficción"
               />
               <FormControlLabel
-                control={<Checkbox checked={categories.some((item) => item === 'electronics')} />}
-                onChange={() => handelFilter('categories', 'electronics')}
-                label="Electronics"
+                control={<Checkbox checked={categories.some((item) => item === 'NO_FICCION')} />}
+                onChange={() => handelFilter('categories', 'NO_FICCION')}
+                label="No Ficción"
               />
               <FormControlLabel
-                control={<Checkbox checked={categories.some((item) => item === 'fashion')} />}
-                onChange={() => handelFilter('categories', 'fashion')}
-                label="Fashion"
+                control={<Checkbox checked={categories.some((item) => item === 'LIBROS_INFANTILES')} />}
+                onChange={() => handelFilter('categories', 'LIBROS_INFANTILES')}
+                label="Libros Infantiles"
               />
               <FormControlLabel
-                control={<Checkbox checked={categories.some((item) => item === 'books')} />}
-                onChange={() => handelFilter('categories', 'books')}
-                label="Book"
+                control={<Checkbox checked={categories.some((item) => item === 'JUVENIL')} />}
+                onChange={() => handelFilter('categories', 'JUVENIL')}
+                label="Juevenil"
               />
               <FormControlLabel
-                control={<Checkbox checked={categories.some((item) => item === 'toys')} />}
-                onChange={() => handelFilter('categories', 'toys')}
-                label="Toys"
+                control={<Checkbox checked={categories.some((item) => item === 'BIOGRAFIA_Y_MEMORIAS')} />}
+                onChange={() => handelFilter('categories', 'BIOGRAFIA_Y_MEMORIAS')}
+                label="Biofrafía y Memorias"
               />
               <FormControlLabel
-                control={<Checkbox checked={categories.some((item) => item === 'kitchen')} />}
-                onChange={() => handelFilter('categories', 'kitchen')}
-                label="Home & Kitchen"
+                control={<Checkbox checked={categories.some((item) => item === 'AUTOAYUDA')} />}
+                onChange={() => handelFilter('categories', 'AUTOAYUDA')}
+                label="Autoayuda"
+              />
+              <FormControlLabel
+                control={<Checkbox checked={categories.some((item) => item === 'LIBROS_DE_TEXTO')} />}
+                onChange={() => handelFilter('categories', 'LIBROS_DE_TEXTO')}
+                label="Libro de Texto"
+              />
+              <FormControlLabel
+                control={<Checkbox checked={categories.some((item) => item === 'COMICS_Y_NOVELAS_GRAFICAS')} />}
+                onChange={() => handelFilter('categories', 'COMICS_Y_NOVELAS_GRAFICAS')}
+                label="Comics y Novelas Gráficas"
               />
             </Stack>
           </Box>
@@ -136,7 +153,7 @@ function Price({ handelFilter }: { price: string; handelFilter: (type: string, p
 
   const valuetext = (value: number) => `${value}`;
 
-  const [value, setValue] = useState<number[]>([0, 300]);
+  const [value, setValue] = useState<number[]>([0, 100]);
   const handleSlider = (event: Event, newValue: any) => {
     setValue(newValue);
     const data = `${newValue[0]}-${newValue[1]}`;
@@ -171,7 +188,7 @@ function Price({ handelFilter }: { price: string; handelFilter: (type: string, p
             </Stack>
           </Stack>
           <Box sx={{ px: 0.75 }}>
-            <Slider min={0} max={1000} value={value} onChange={handleSlider} valueLabelDisplay="auto" getAriaValueText={valuetext} />
+            <Slider min={0} max={200} value={value} onChange={handleSlider} valueLabelDisplay="auto" getAriaValueText={valuetext} />
           </Box>
         </Stack>
       )}
