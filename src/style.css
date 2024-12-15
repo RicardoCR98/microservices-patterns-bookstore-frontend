@@ -1,0 +1,11 @@
+.ck-image-insert-form button:nth-of-type(2) {
+    display: none !important;
+}
+
+.ck.ck-powered-by {
+    _display: none !important;
+}
+
+.ck-toolbar {
+    z-index: 10000 !important;
+  }
