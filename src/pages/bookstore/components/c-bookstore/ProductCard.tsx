@@ -88,9 +88,9 @@ export default function ProductCard({
           <Box sx={{ width: 250, m: 'auto' }}>
             <CardMedia
               sx={{ height: 250, textDecoration: 'none', opacity: isStock ? 1 : 0.25 }}
-              image={image && getImageUrl(`${image}`, ImagePath.ECOMMERCE)}
+              image={image}
               component={Link}
-              to={`/api/product/details/${id}`}
+              to={`/product/${id}`}
             />
           </Box>
           <Stack
@@ -116,7 +116,7 @@ export default function ProductCard({
                 <Stack>
                   <Typography
                     component={Link}
-                    to={`/apps/e-commerce/product-details/${id}`}
+                    to={`/product/${id}`}
                     color="text.primary"
                     variant="h5"
                     sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block', textDecoration: 'none' }}

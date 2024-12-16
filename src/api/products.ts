@@ -57,12 +57,11 @@ export async function filterProducts(filter: ProductsFilter): Promise<{ data: Pr
 //   }
 // }
 
-
-
-// ⬇️ Cargar detalles de un producto
+// ⬇️ Cargar detalles de un producto 
 export async function productLoader({ params }: { params: { id: string } }): Promise<Products> {
   try {
-    const response = await axios.post('/api/product/details', { id: params.id });
+    const response = await axios.get(`/api/products/${params.id}`);
+    console.log('Respuesta del detalle:', response.data);
     return response.data as Products; // Asegúrate de que los datos sean del tipo Products
   } catch (error) {
     console.error('Error loading product details:', error);
@@ -70,10 +69,21 @@ export async function productLoader({ params }: { params: { id: string } }): Pro
   }
 }
 
+
+// export async function productLoader({ params }: { params: { id: string } }): Promise<Products> {
+//   try {
+//     const response = await axios.post('/api/product', { id: params.id });
+//     return response.data as Products; // Asegúrate de que los datos sean del tipo Products
+//   } catch (error) {
+//     console.error('Error loading product details:', error);
+//     throw new Error('Could not load product details');
+//   }
+// }
+
 // ⬇️ Obtener productos relacionados
-export async function getRelatedProducts(id: string | undefined): Promise<Products[]> {
+export async function getRelatedProducts(id: string): Promise<Products[]> {
   try {
-    const response = await axios.post('/api/product/related', { id });
+    const response = await axios.get(`/api/product/${id}/related`); // Usar método GET y el id en el path
     return response.data as Products[]; // Asegúrate de que los datos sean un arreglo de productos
   } catch (error) {
     console.error('Error fetching related products:', error);
@@ -81,13 +91,14 @@ export async function getRelatedProducts(id: string | undefined): Promise<Produc
   }
 }
 
+
 // ⬇️ Obtener reseñas de productos
-// export async function getProductReviews(): Promise<any> {
-//   try {
-//     const response = await axios.get('/api/review/list');
-//     return response.data; // Ajusta el tipo según el formato esperado de las reseñas
-//   } catch (error) {
-//     console.error('Error fetching product reviews:', error);
-//     throw new Error('Could not fetch product reviews');
-//   }
-// }
+export async function getProductReviews(): Promise<any> {
+  try {
+    const response = await axios.get('/api/review/list');
+    return response.data; // Ajusta el tipo según el formato esperado de las reseñas
+  } catch (error) {
+    console.error('Error fetching product reviews:', error);
+    throw new Error('Could not fetch product reviews');
+  }
+}

@@ -1,4 +1,4 @@
-import ProductsPage from "./products"
+import ProductsPage from "./Products"
 
 export const HomePage = () => {
   return (
