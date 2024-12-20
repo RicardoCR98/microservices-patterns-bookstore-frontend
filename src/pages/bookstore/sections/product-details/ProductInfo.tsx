@@ -25,7 +25,7 @@ import * as yup from 'yup';
 import ColorOptions from '../products/ColorOptions';
 import Avatar from '@components/@extended/Avatar';
 
-import { addToCart, useGetCart } from 'src/api/cart';
+import { addToCart, useGetCart } from 'src/api/bookstore/cart';
 import { openSnackbar } from 'src/api/snackbar';
 import { ThemeMode } from 'src/config';
 

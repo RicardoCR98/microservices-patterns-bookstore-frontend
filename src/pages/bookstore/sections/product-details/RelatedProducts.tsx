@@ -19,7 +19,7 @@ import Avatar from '@components/@extended/Avatar';
 import IconButton from '@components/@extended/IconButton';
 import SimpleBar from '@components/third-party/SimpleBar';
 
-import { getRelatedProducts } from 'src/api/products';
+import { getRelatedProducts } from 'src/api/bookstore/products';
 import { openSnackbar } from 'src/api/snackbar';
 import { getImageUrl, ImagePath } from 'src/utils/getImageUrl';
 
@@ -32,6 +32,7 @@ import StarOutlined from '@ant-design/icons/StarOutlined';
 // types
 import { SnackbarProps } from 'src/types/snackbar';
 import { Products } from 'src/types/e-commerce';
+import { Link } from 'react-router-dom';
 
 function ListProduct({ product }: { product: Products }) {
   const [wishlisted, setWishlisted] = useState<boolean>(false);
@@ -46,7 +47,7 @@ function ListProduct({ product }: { product: Products }) {
   };
 
   return (
-    <ListItemButton divider>
+    <ListItemButton divider component={Link} to={`/product/${product.id}`}>
       <ListItemAvatar>
         <Avatar
           alt="Avatar"
@@ -60,7 +61,7 @@ function ListProduct({ product }: { product: Products }) {
       </ListItemAvatar>
       <ListItemText
         disableTypography
-        primary={<Typography variant="h5">{product.cover}</Typography>}
+        primary={<Typography variant="h5">{product.title}</Typography>}
         secondary={
           <Stack spacing={1}>
             <Typography color="text.secondary">{product.description}</Typography>

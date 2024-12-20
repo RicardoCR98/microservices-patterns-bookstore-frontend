@@ -23,10 +23,11 @@ import ProductInfo from '../sections/product-details/ProductInfo';
 import ProductSpecifications from '../sections/product-details/ProductSpecifications';
 import RelatedProducts from '../sections/product-details/RelatedProducts';
 
-import { resetCart, useGetCart } from 'src/api/cart';
+import { resetCart, useGetCart } from 'src/api/bookstore/cart';
 
 // types
 import { Products, TabsProps } from 'src/types/e-commerce';
+import { productLoader } from 'src/api/bookstore/products';
 
 function TabPanel({ children, value, index, ...other }: TabsProps) {
   return (
@@ -77,9 +78,12 @@ export default function ProductDetails() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:8088/api/products/${id}`);
-        console.log('Respuesta del detalle:', response.data);
-        setProduct(response.data as Products);
+        setLoading(true);
+  
+        // Llamar a la función productLoader y pasar el id como parámetro
+        const data = await productLoader({ params: { id } });
+        console.log('Respuesta del detalle:', data);
+        setProduct(data); // Actualiza el estado con el producto recibido
       } catch (err) {
         console.error('Error loading product details:', err);
         setError('No se pudo cargar los detalles del producto');
@@ -87,7 +91,7 @@ export default function ProductDetails() {
         setLoading(false);
       }
     };
-
+  
     if (id) {
       fetchProduct();
     }
@@ -182,7 +186,7 @@ export default function ProductDetails() {
         </Grid>
         <Grid item xs={12} md={5} xl={4} sx={{ position: 'relative' }}>
           <MainCard
-            title="Related Products"
+            title="Libros Relacionados"
             sx={{
               height: 'calc(100% - 16px)',
               position: { xs: 'relative', md: 'absolute' },

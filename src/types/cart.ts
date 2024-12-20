@@ -21,13 +21,27 @@ export interface CartProductStateProps {
   image: string;
   salePrice: number;
   offerPrice: number;
-  color: string;
-  size: string | number;
+  // color: string;
+  // size: string | number;
   quantity: number;
   description?: string;
 }
 
+// Tipo de dato que viene del backend
 export type Address = {
+  id?: string | number | undefined;
+  label: string;
+  line1: string;
+  line2: string;
+  city: string;
+  state: string;
+  country: string;
+  zipCode: string | number;
+  phoneNumber: string | number;
+  defaultAddress: boolean;
+};
+
+export type Addresssss = {
   id?: string | number | undefined;
   name: string;
   destination: string;
@@ -44,7 +58,7 @@ export type Address = {
 export interface CartPaymentStateProps {
   type: string;
   method: string;
-  card: string;
+  token: string;
 }
 
 export interface ProductCardProps extends KeyedObject {

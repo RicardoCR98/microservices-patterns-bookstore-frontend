@@ -1,10 +1,10 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-const axiosServices = axios.create({ 
-  baseURL: import.meta.env.VITE_APP_API_URL || 'http://localhost:8080' 
+const axiosServices = axios.create({
+  baseURL: import.meta.env.VITE_APP_API_URL || 'http://localhost:8080',
 });
 
-// ==============================|| AXIOS - FOR MOCK SERVICES ||============================== //
+// ==============================|| INTERCEPTOR - REQUEST ||============================== //
 
 axiosServices.interceptors.request.use(
   async (config) => {
@@ -19,36 +19,21 @@ axiosServices.interceptors.request.use(
   }
 );
 
-// axiosServices.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if (error.response?.status === 401) {
-//       console.warn('Unauthorized: Ensure your backend is running and properly configured.');
-//       // Evitar redirigir automáticamente durante el desarrollo
-//       if (!window.location.href.includes('/login') && import.meta.env.MODE !== 'development') {
-//         window.location.pathname = '/mantenimiento/500';
-//       }
-//     } else if (error.response) {
-//       console.error('Error in response:', error.response.data);
-//     } else {
-//       console.error('Error: ', error.message);
-//     }
-//     return Promise.reject((error.response && error.response.data) || 'Wrong Services');
-//   }
-// );
+// ==============================|| INTERCEPTOR - RESPONSE ||============================== //
 
 axiosServices.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Verifica si error.response existe antes de acceder a status
     if (error.response) {
+      // Manejar errores de status 401 (Unauthorized)
       if (error.response.status === 401 && !window.location.href.includes('/login')) {
+        console.warn('Unauthorized access. Redirecting...');
         window.location.pathname = '/mantenimiento/500';
       }
       return Promise.reject(error.response.data || 'Wrong Services');
     } else {
-      // Manejar errores sin response (por ejemplo, problemas de red)
-      console.error('Error sin respuesta del servidor:', error.message);
+      // Manejar errores de red sin respuesta
+      console.error('No response from server:', error.message);
       return Promise.reject('No response from server');
     }
   }
@@ -56,13 +41,11 @@ axiosServices.interceptors.response.use(
 
 export default axiosServices;
 
-
-
 // ==============================|| FETCHER FUNCTIONS ||============================== //
 
 export const fetcher = async (args: string | [string, AxiosRequestConfig]) => {
   const [url, config] = Array.isArray(args) ? args : [args];
-
+  
   try {
     const res = await axiosServices.get(url, { ...config });
     return res.data;
@@ -72,11 +55,13 @@ export const fetcher = async (args: string | [string, AxiosRequestConfig]) => {
   }
 };
 
-export const fetcherPost = async (args: string | [string, AxiosRequestConfig]) => {
-  const [url, config] = Array.isArray(args) ? args : [args];
+export const fetcherPost = async (
+  args: string | [string, any, AxiosRequestConfig?] // Permitir datos en POST
+) => {
+  const [url, data, config] = Array.isArray(args) ? args : [args, null];
 
   try {
-    const res = await axiosServices.post(url, { ...config });
+    const res = await axiosServices.post(url, data, { ...config });
     return res.data;
   } catch (error) {
     console.error('Error in fetcherPost:', error);

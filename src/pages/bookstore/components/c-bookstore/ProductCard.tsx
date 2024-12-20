@@ -18,7 +18,7 @@ import Box from '@mui/material/Box';
 import MainCard from '@components/organisms/bookstore/MainCard';
 import IconButton from '@components/@extended/IconButton';
 import SkeletonProductPlaceholder from '../skeleton/ProductPlaceholder';
-import { useGetCart, addToCart } from 'src/api/cart';
+import { useGetCart, addToCart } from 'src/api/bookstore/cart';
 import { openSnackbar } from 'src/api/snackbar';
 import { ImagePath, getImageUrl } from '@utils/getImageUrl';
 

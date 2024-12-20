@@ -10,7 +10,7 @@ import Badge from '@mui/material/Badge';
 import { CartProductStateProps } from 'src/types/cart';
 
 // project import
-import { useGetCart } from 'src/api/cart';
+import { useGetCart } from 'src/api/bookstore/cart';
 
 // assets
 import ShoppingCartOutlined from '@ant-design/icons/ShoppingCartOutlined';
@@ -30,7 +30,7 @@ export default function FloatingCart() {
   return (
     <Fab
       component={Link}
-      to="/apps/e-commerce/checkout"
+      to="/checkout"
       size="large"
       sx={{
         top: '75%',

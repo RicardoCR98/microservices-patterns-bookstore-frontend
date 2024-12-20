@@ -23,7 +23,7 @@ const initialState: CartCheckoutStateProps = {
   payment: {
     type: 'free',
     method: 'card',
-    card: ''
+    token: ''
   }
 };
 

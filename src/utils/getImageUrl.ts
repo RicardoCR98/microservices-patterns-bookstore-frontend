@@ -1,7 +1,7 @@
 export enum ImagePath {
   LANDING = 'landing',
   USERS = 'users',
-  BOOKSTORE = 'bookstore',
+  ECOMMERCE = 'bookstore',
   PROFILE = 'profile'
 }
 

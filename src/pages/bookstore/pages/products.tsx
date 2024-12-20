@@ -14,8 +14,8 @@ import ProductsHeader from '../sections/products/ProductsHeader';
 import ProductEmpty from '../sections/products/ProductEmpty';
 
 import { useConfig2 } from 'src/hooks/useConfig';
-import { resetCart, useGetCart } from 'src/api/cart';
-import { filterProducts, fetchInitialProducts } from 'src/api/products';
+import { resetCart, useGetCart } from 'src/api/bookstore/cart';
+import { filterProducts, fetchInitialProducts } from 'src/api/bookstore/products';
 
 // types
 import { Products as ProductsTypo, ProductsFilter } from 'src/types/e-commerce';
@@ -56,42 +56,20 @@ export default function ProductsPage() {
   const { container } = useConfig2();
 
 // Carga inicial de productos
-useEffect(() => {
-  async function fetchProducts() {
-    try {
-      setLoading(true); 
-      const response = await fetch('http://localhost:8088/api/products'); 
-      const data = await response.json(); 
-
-      if (Array.isArray(data)) {
-        setProducts(data); 
-      } else {
-        console.error('Invalid data format received:', data); 
-      }
-    } catch (error) {
-      console.error('Error fetching products:', error); 
-    } finally {
-      setLoading(false); 
-    }
-  }
-
-  fetchProducts();
-}, []); 
-
-
 // useEffect(() => {
 //   async function fetchProducts() {
 //     try {
-//       setLoading(true);
-//       const data = await fetchInitialProducts();
+//       setLoading(true); 
+//       const response = await fetch('http://localhost:8080/api/products'); 
+//       const data = await response.json(); 
 
 //       if (Array.isArray(data)) {
 //         setProducts(data); 
 //       } else {
-//         console.error('Formato de datos no válido recibido:', data);
+//         console.error('Invalid data format received:', data); 
 //       }
 //     } catch (error) {
-//       console.error('Error al cargar los productos:', error);
+//       console.error('Error fetching products:', error); 
 //     } finally {
 //       setLoading(false); 
 //     }
@@ -99,6 +77,28 @@ useEffect(() => {
 
 //   fetchProducts();
 // }, []); 
+
+
+useEffect(() => {
+  async function fetchProducts() {
+    try {
+      setLoading(true);
+      const data = await fetchInitialProducts();
+      console.log('Datos de productos recibidos:', data);
+      if (Array.isArray(data)) {
+        setProducts(data); 
+      } else {
+        console.error('Formato de datos no válido recibido:', data);
+      }
+    } catch (error) {
+      console.error('Error al cargar los productos:', error);
+    } finally {
+      setLoading(false); 
+    }
+  }
+
+  fetchProducts();
+}, []); 
 
 
   // Limpieza del carrito si el pedido está completo
@@ -145,7 +145,7 @@ useEffect(() => {
         console.log('Filtro normalizado enviado al backend:', normalizedFilter);
   
         const response = await filterProducts(normalizedFilter);
-        console.log('Respuesta del backend:', response);
+        console.log('Respuesta del backend:', response.data);
         setProducts(response.data);
       } catch (error) {
         console.error('Error filtering products:', error);

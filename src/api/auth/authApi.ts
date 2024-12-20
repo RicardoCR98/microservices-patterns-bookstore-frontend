@@ -1,4 +1,4 @@
-import { http } from "../http";
+import { http } from "./http";
 import { LoginResponse, RegisterRequest, RegisterResponse } from "./authInterfaces";
 
 export const loginUserApi = async (

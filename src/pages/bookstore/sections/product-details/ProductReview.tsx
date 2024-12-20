@@ -22,7 +22,7 @@ import { format } from 'date-fns';
 import MainCard from '@components/organisms/bookstore/MainCard';
 import IconButton from '@components/@extended/IconButton';
 import ProductReview from '../../components/c-bookstore/ProductReview';
-import { getProductReviews } from 'src/api/products';
+import { getProductReviews } from 'src/api/bookstore/products';
 
 // assets
 import FileAddOutlined from '@ant-design/icons/FileAddOutlined';

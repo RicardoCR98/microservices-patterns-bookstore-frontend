@@ -34,7 +34,7 @@ export type Products = {
   stockQuantity?: number;
   salePrice?: number;
   offerPrice?: number;
-  offer?: number|string; //añadir en backend
+  offer?: number|string; 
   cover: string;
   condition?: string;
   rating?: number;
@@ -45,7 +45,7 @@ export type Products = {
 
 
 // checkout-cart billing address
-export type Address = {
+export type Addresss = {
   id?: string | number | undefined;
   name: string;
   destination: string;
@@ -58,6 +58,21 @@ export type Address = {
   phone: string | number;
   isDefault: boolean;
 };
+
+// Tipo de dato que viene del backend
+export type Address = {
+  id?: string | number | undefined;
+  label: string;
+  line1: string;
+  line2: string;
+  city: string;
+  state: string;
+  country: string;
+  zipCode: string | number;
+  phoneNumber: string | number;
+  defaultAddress: boolean;
+};
+
 
 // product reviews list
 export type Reviews = {

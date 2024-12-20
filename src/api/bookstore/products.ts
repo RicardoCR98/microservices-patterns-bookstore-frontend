@@ -5,29 +5,19 @@ import { Products, ProductsFilter } from 'src/types/e-commerce';
 export async function fetchInitialProducts(): Promise<Products[]> {
   try {
     const response = await axios.get('/api/products');
-    return response.data.products as Products[]; // Especificamos el tipo de retorno
+    // console.log('Respuesta crudassss del backend:', response.data); 
+    return response.data as Products[]; // Especificamos el tipo de retorno
   } catch (error) {
     console.error('Error fetching products:', error);
     throw new Error('Could not fetch products'); // Lanzamos un error manejable
   }
 }
 
-// ⬇️ Carga inicial de productos (antes `loader`)
-// export async function fetchInitialProducts(): Promise<Products[]> {
-//   try {
-//     const response = await axios.get('/api/products');
-//     return response.data.products; 
-//   } catch (error) {
-//     console.error('Error al cargar los productos:', error);
-//     throw error; 
-//   }
-// }
-
 // ⬇️ Filtrar productos
 export async function filterProducts(filter: ProductsFilter): Promise<{ data: Products[] }> {
   try {
     const response = await axios.post('/api/products/filter', filter );
-    console.log('Respuesta cruda del backend:', response.data);
+    // console.log('Respuesta cruda del backend:', response.data);
     return response.data; // Asegúrate de que `response.data` contenga los datos esperados
   } catch (error) {
     console.error('Error filtering products:', error);
@@ -58,10 +48,10 @@ export async function filterProducts(filter: ProductsFilter): Promise<{ data: Pr
 // }
 
 // ⬇️ Cargar detalles de un producto 
-export async function productLoader({ params }: { params: { id: string } }): Promise<Products> {
+export async function productLoader({ params }: { params: { id?: string } }): Promise<Products> {
   try {
     const response = await axios.get(`/api/products/${params.id}`);
-    console.log('Respuesta del detalle:', response.data);
+    // console.log('Respuesta del detalle:', response.data);
     return response.data as Products; // Asegúrate de que los datos sean del tipo Products
   } catch (error) {
     console.error('Error loading product details:', error);
@@ -69,22 +59,12 @@ export async function productLoader({ params }: { params: { id: string } }): Pro
   }
 }
 
-
-// export async function productLoader({ params }: { params: { id: string } }): Promise<Products> {
-//   try {
-//     const response = await axios.post('/api/product', { id: params.id });
-//     return response.data as Products; // Asegúrate de que los datos sean del tipo Products
-//   } catch (error) {
-//     console.error('Error loading product details:', error);
-//     throw new Error('Could not load product details');
-//   }
-// }
-
 // ⬇️ Obtener productos relacionados
-export async function getRelatedProducts(id: string): Promise<Products[]> {
+export async function getRelatedProducts(id?: string): Promise<Products[]> {
   try {
-    const response = await axios.get(`/api/product/${id}/related`); // Usar método GET y el id en el path
-    return response.data as Products[]; // Asegúrate de que los datos sean un arreglo de productos
+    const response = await axios.get(`/api/products/${id}/related`); 
+    // console.log('Respuesta de productos relacionados:', response.data);
+    return response.data as Products[]; 
   } catch (error) {
     console.error('Error fetching related products:', error);
     throw new Error('Could not fetch related products');

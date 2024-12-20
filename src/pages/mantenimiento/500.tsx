@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import { APP_DEFAULT_PATH } from 'src/config';
 
 // assets
-import error500 from 'assets/images/maintenance/Error500.png';
+import error500 from 'src/assets/images/mantenimiento/Error500.png';
 
 // ==============================|| ERROR 500 - MAIN ||============================== //
 
