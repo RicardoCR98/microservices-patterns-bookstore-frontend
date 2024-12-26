@@ -14,15 +14,14 @@ export interface Address {
   }
   
   export interface PaymentMethod {
-    id: string;
+    id?: string | number | undefined;
     type: string;
+    cardNumber: string;
     cardHolderName: string;
     cardBrand: string;
     last4: string;
     expirationMonth: string;
     expirationYear: string;
-    defaultMethod: boolean;
-    token: string;
   }
   
   export interface User {

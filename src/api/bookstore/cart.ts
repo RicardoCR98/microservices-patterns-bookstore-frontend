@@ -15,14 +15,13 @@ export const endpoints = {
 const initialState: CartCheckoutStateProps = {
   step: 0,
   products: [],
-  subtotal: 0,
+  // subtotal: 0,
   total: 0,
-  discount: 0,
-  shipping: 0,
+  // discount: 0,
+  // shipping: 0,
   billing: null,
   payment: {
-    type: 'free',
-    method: 'card',
+    type: '',
     token: ''
   }
 };
@@ -226,63 +225,63 @@ export function setBillingAddress(billing: Address | null) {
   );
 }
 
-export function setCartDiscount(code: string, total: number) {
-  // to update local state based on key
-  let amount = 0;
-  if (total > 0) {
-    switch (code) {
-      case 'BERRY50':
-        amount = chance.integer({ min: 1, max: total < 49 ? total : 49 });
-        break;
-      case 'FLAT05':
-        amount = total < 5 ? total : 5;
-        break;
-      case 'SUB150':
-        amount = total < 150 ? total : 150;
-        break;
-      case 'UPTO200':
-        amount = chance.integer({ min: 1, max: total < 199 ? total : 199 });
-        break;
-      default:
-        amount = 0;
-    }
-  }
+// export function setCartDiscount(code: string, total: number) {
+//   // to update local state based on key
+//   let amount = 0;
+//   if (total > 0) {
+//     switch (code) {
+//       case 'BERRY50':
+//         amount = chance.integer({ min: 1, max: total < 49 ? total : 49 });
+//         break;
+//       case 'FLAT05':
+//         amount = total < 5 ? total : 5;
+//         break;
+//       case 'SUB150':
+//         amount = total < 150 ? total : 150;
+//         break;
+//       case 'UPTO200':
+//         amount = chance.integer({ min: 1, max: total < 199 ? total : 199 });
+//         break;
+//       default:
+//         amount = 0;
+//     }
+//   }
 
-  let difference = 0;
+//   let difference = 0;
 
-  mutate(
-    endpoints.key,
-    (currentCart: any) => {
-      if (currentCart.discount > 0) {
-        difference = currentCart.discount;
-      }
+//   mutate(
+//     endpoints.key,
+//     (currentCart: any) => {
+//       if (currentCart.discount > 0) {
+//         difference = currentCart.discount;
+//       }
 
-      const newCart = {
-        ...currentCart,
-        discount: amount,
-        total: currentCart.total + difference - amount
-      };
+//       const newCart = {
+//         ...currentCart,
+//         discount: amount,
+//         total: currentCart.total + difference - amount
+//       };
 
-      localStorage.setItem(LOCAL_STORAGE, JSON.stringify(newCart));
-      return newCart;
-    },
-    false
-  );
-}
+//       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(newCart));
+//       return newCart;
+//     },
+//     false
+//   );
+// }
 
-export function setPaymentMethod(method: string) {
-  // to update local state based on key
-  mutate(
-    endpoints.key,
-    (currentCart: any) => {
-      const newCart = { ...currentCart, payment: { ...currentCart.payment, method } };
+// export function setPaymentMethod(method: string) {
+//   // to update local state based on key
+//   mutate(
+//     endpoints.key,
+//     (currentCart: any) => {
+//       const newCart = { ...currentCart, payment: { ...currentCart.payment, method } };
 
-      localStorage.setItem(LOCAL_STORAGE, JSON.stringify(newCart));
-      return newCart;
-    },
-    false
-  );
-}
+//       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(newCart));
+//       return newCart;
+//     },
+//     false
+//   );
+// }
 
 export function setPaymentCard(card: string) {
   // to update local state based on key
@@ -297,6 +296,27 @@ export function setPaymentCard(card: string) {
     false
   );
 }
+
+export function setPaymentDetails(type: string, token: string) {
+  mutate(
+    endpoints.key,
+    (currentCart: any) => {
+      const newCart = { 
+        ...currentCart, 
+        payment: { 
+          type, 
+          token 
+        } 
+      };
+
+      localStorage.setItem(LOCAL_STORAGE, JSON.stringify(newCart));
+      
+      return newCart;
+    },
+    false
+  );
+}
+
 
 export function resetCart() {
   // to update local state based on key

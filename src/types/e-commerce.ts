@@ -73,6 +73,16 @@ export type Address = {
   defaultAddress: boolean;
 };
 
+export type Payment = {
+  id?: string | number | undefined;
+  cardType: string;
+  CardHolderName: string;
+  CardNumber: string;
+  ExpiryMonth: string;
+  ExpiryYear: string;
+  Cvv: string;
+};
+
 
 // product reviews list
 export type Reviews = {

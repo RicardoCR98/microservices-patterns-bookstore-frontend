@@ -138,7 +138,7 @@ export default function BillingAddress({ checkout, onBack, billingAddressHandler
             <Grid item xs={12}>
               <Stack direction="row" justifyContent="space-between">
                 <Stack direction="row" alignItems="center" spacing={1}>
-                  <Typography variant="subtitle1">No address found</Typography>
+                  <Typography variant="subtitle1">Ninguna dirección encontrada</Typography>
                 </Stack>
               </Stack>
             </Grid>
@@ -269,10 +269,10 @@ export default function BillingAddress({ checkout, onBack, billingAddressHandler
               <Grid item xs={12}>
                 <Stack direction="row" spacing={2} justifyContent="flex-end">
                   <Button variant="outlined" color="secondary" onClick={formik.handleReset}>
-                    Cancel
+                    Cancelar
                   </Button>
                   <Button type="submit" variant="contained" color="primary">
-                    Save
+                    Guardar
                   </Button>
                 </Stack>
               </Grid>

@@ -10,16 +10,22 @@ import MainCard from '@components/organisms/bookstore/MainCard';
 // assets
 import visa from 'src/assets/images/bookstore/visa.png';
 import mastercard from 'src/assets/images/bookstore/mastercard.png';
+import { PaymentMethod } from 'src/types/users';
 
 // ==============================|| CHECKOUT PAYMENT - CARD METHOD ||============================== //
 
 interface PaymentCardProps {
-  type: string;
-  paymentType: string;
+  pay: PaymentMethod;
+  type?: string;
+  paymentType?: string;
   cardHandler: (card: string) => void;
 }
 
-export default function PaymentCard({ type, paymentType, cardHandler }: PaymentCardProps) {
+const cardOculter = (card: string) => {
+  return card.replace(/\d(?=\d{4})/g, ' ');
+}
+
+export default function PaymentCard({ pay, type, paymentType, cardHandler }: PaymentCardProps) {
   const theme = useTheme();
   const card = type === 'visa' ? visa : mastercard;
 
@@ -42,17 +48,17 @@ export default function PaymentCard({ type, paymentType, cardHandler }: PaymentC
         sx={{
           p: 2
         }}
-        onClick={() => cardHandler(type)}
+        onClick={() => type && cardHandler(type)}
       >
         <Stack direction="row" alignItems="flex-start" justifyContent="space-between">
           <Stack spacing={0}>
-            <Typography variant="h5">{type === 'visa' ? 'Jennifer winget' : 'John Smith'}</Typography>
+            <Typography variant="h5">{pay.cardHolderName}</Typography>
             <Stack direction="row" alignItems="flex-start" spacing={1}>
               <Typography variant="h2" color="inherit" sx={{ lineHeight: '0.5rem', fontFamily: 'auto' }}>
                 .... .... ....
               </Typography>
               <Typography variant="h5" color="inherit">
-                {type === 'visa' ? 5674 : 6790}
+                {cardOculter(pay.cardNumber)}
               </Typography>
             </Stack>
           </Stack>
@@ -73,7 +79,7 @@ export default function PaymentCard({ type, paymentType, cardHandler }: PaymentC
               CVV
             </Typography>
             <Typography variant="body2" color="inherit">
-              {type === 'visa' ? 678 : 760}
+              {pay.last4}
             </Typography>
           </Stack>
           <Stack spacing={1} direction="row">
@@ -81,7 +87,7 @@ export default function PaymentCard({ type, paymentType, cardHandler }: PaymentC
               Expire Date
             </Typography>
             <Typography variant="body2" color="inherit">
-              {type === 'visa' ? '3 / 25' : '10 / 22'}
+              {pay.expirationMonth}/{pay.expirationYear}
             </Typography>
           </Stack>
         </Stack>

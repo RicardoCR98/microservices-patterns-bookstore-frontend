@@ -24,7 +24,7 @@ const chance = new Chance();
 
 // ==============================|| CHECKOUT - ORDER COMPLETE ||============================== //
 
-export default function OrderComplete({ open }: { open: boolean }) {
+export default function OrderComplete({ open, orderID }: { open: boolean, orderID: string }) {
   const downMD = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
 
   return (
@@ -51,7 +51,7 @@ export default function OrderComplete({ open }: { open: boolean }) {
                 <Typography align="center" color="text.secondary">
                   Tu número de orden es:{' '}
                   <Typography variant="subtitle1" component="span" color="primary">
-                    {chance.guid()}
+                    {orderID}
                   </Typography>
                 </Typography>
               </Box>

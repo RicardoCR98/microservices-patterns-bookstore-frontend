@@ -6,10 +6,10 @@ export type KeyedObject = {
 export interface CartCheckoutStateProps {
   step: number;
   products: CartProductStateProps[];
-  subtotal: number;
+  // subtotal: number;
   total: number;
-  discount: number;
-  shipping: number;
+  // discount: number;
+  // shipping: number;
   billing: Address | null;
   payment: CartPaymentStateProps;
 }
@@ -57,7 +57,6 @@ export type Addresssss = {
 
 export interface CartPaymentStateProps {
   type: string;
-  method: string;
   token: string;
 }
 
