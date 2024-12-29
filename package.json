@@ -44,6 +44,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "antd": "^5.22.3",
     "axios": "^1.7.9",
+    "bootstrap": "^5.3.3",
     "chance": "^1.1.12",
     "ckeditor5": "^44.0.0",
     "currency.js": "^2.0.4",

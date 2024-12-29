@@ -25,14 +25,12 @@ axiosServices.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
-      // Manejar errores de status 401 (Unauthorized)
-      if (error.response.status === 401 && !window.location.href.includes('/login')) {
+      if (error.response.status === 401 && !window.location.href.includes('/login') && !window.location.href.includes('/mantenimiento/500')) {
         console.warn('Unauthorized access. Redirecting...');
         window.location.pathname = '/mantenimiento/500';
       }
       return Promise.reject(error.response.data || 'Wrong Services');
     } else {
-      // Manejar errores de red sin respuesta
       console.error('No response from server:', error.message);
       return Promise.reject('No response from server');
     }
