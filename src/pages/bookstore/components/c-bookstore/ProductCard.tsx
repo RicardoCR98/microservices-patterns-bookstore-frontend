@@ -19,18 +19,15 @@ import MainCard from '@components/organisms/bookstore/MainCard';
 import IconButton from '@components/@extended/IconButton';
 import SkeletonProductPlaceholder from '../skeleton/ProductPlaceholder';
 import { useGetCart, addToCart } from 'src/api/bookstore/cart';
-import { openSnackbar } from 'src/api/snackbar';
+import { useSimpleSnackbar } from 'src/components/SimpleSnackbarProvider'; // Importa el hook para usar el Snackbar
 import { ImagePath, getImageUrl } from '@utils/getImageUrl';
 
 // types
 import { ProductCardProps } from 'src/types/cart';
-import { SnackbarProps } from 'src/types/snackbar';
 
 // assets
 import HeartOutlined from '@ant-design/icons/HeartOutlined';
 import HeartFilled from '@ant-design/icons/HeartFilled';
-
-// ==============================|| PRODUCT CARD ||============================== //
 
 export default function ProductCard({
   id,
@@ -45,33 +42,19 @@ export default function ProductCard({
   rating
 }: ProductCardProps) {
   const theme = useTheme();
-
   const { cart } = useGetCart();
+  const { showSuccess, showInfo } = useSimpleSnackbar(); 
 
   const [wishlisted, setWishlisted] = useState<boolean>(false);
 
   const addCart = () => {
     addToCart({ id, name, image, salePrice, offerPrice, size: 8, quantity: 1, description }, cart.products);
-    openSnackbar({
-      open: true,
-      message: 'Add To Cart Success',
-      variant: 'alert',
-      alert: {
-        color: 'success'
-      }
-    } as SnackbarProps);
+    showSuccess('Producto añadido al carrito con éxito');
   };
 
   const addToFavourite = () => {
     setWishlisted(!wishlisted);
-    openSnackbar({
-      open: true,
-      message: !wishlisted ? 'Added to favorites' : 'Removed from favorites',
-      variant: 'alert',
-      alert: {
-        color: 'success'
-      }
-    } as SnackbarProps);
+    showInfo(!wishlisted ? 'Añadido a favoritos' : 'Removido de favoritos'); 
   };
 
   const [isLoading, setLoading] = useState(true);

@@ -1,4 +1,5 @@
 import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import Grid2 from '@mui/material/Grid2';
@@ -12,6 +13,7 @@ import { StringColorProps } from '../../../../types/password';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { AuthSocial } from './AuthSocial';
 import { useAuth } from '@hooks/auth/useAuth';
+import { useSimpleSnackbar } from '@components/SimpleSnackbarProvider';
 const validationSchema = Yup.object({
   fullName: Yup.string()
     .matches(/^[A-Za-zÀ-ÿ\s]+$/, 'El nombre solo puede contener letras y espacios')
@@ -32,6 +34,8 @@ export const AuthRegister = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [captchaValue, setCaptchaValue] = React.useState<string | null>(null);
   const { registerUser } = useAuth();
+  const { showSuccess } = useSimpleSnackbar(); 
+  const navigate = useNavigate();
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -59,11 +63,22 @@ export const AuthRegister = () => {
           submit: null
         }}
         validationSchema={validationSchema}
-        onSubmit={async (values) => {
-          const fullName = values.fullName.trim();
-          const email = values.email.trim();
-          const pass = values.password.trim();
-          registerUser(fullName, email, pass);
+        onSubmit={async (values, { setSubmitting }) => {
+          try {
+            const fullName = values.fullName.trim();
+            const email = values.email.trim();
+            const pass = values.password.trim();
+
+            await registerUser(fullName, email, pass);
+
+            // Redirige a la pantalla de login
+            navigate("/auth/login");
+            showSuccess('Usuario registrado con éxito');
+          } catch (error) {
+            console.error("Error en el registro:", error);
+          } finally {
+            setSubmitting(false);
+          }
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (

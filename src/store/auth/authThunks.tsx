@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { checkingCredentials, login, logout, setError } from './authSlice';
 import { loginAdminApi, loginUserApi, registerUserApi } from 'src/api';
+import { useSimpleSnackbar } from '@components/SimpleSnackbarProvider';
 
 export const startLogin = createAsyncThunk(
   'auth/startLogin',
@@ -26,7 +27,6 @@ export const startLogin = createAsyncThunk(
 
       //console.log('newAuthData',newAuthData);
       // localStorage.setItem("tesis-user",JSON.stringify(newAuthData));
-
       dispatch(login(newAuthData));
     } catch (error: any) {
       const message = error.response?.data?.message || 'Network error or invalid credentials';
@@ -73,7 +73,7 @@ export const startRegister = createAsyncThunk(
       localStorage.setItem("serviceToken", token || "");
 
       // Cambiar el estado a "authenticated"
-      dispatch(login(newAuthData));
+      // dispatch(login(newAuthData));
     } catch (error: any) {
       // Manejo de errores (si no responde el backend o hay problemas en la API)
       const message = error.response?.data?.message || "Error en el registro";

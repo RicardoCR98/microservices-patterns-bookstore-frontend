@@ -35,7 +35,7 @@ import Avatar from '@components/@extended/Avatar';
 import IconButton from '@components/@extended/IconButton';
 
 import { setPaymentCard } from 'src/api/bookstore/cart';
-import { openSnackbar } from 'src/api/snackbar';
+// import { openSnackbar } from 'src/api/snackbar';
 import { getImageUrl, ImagePath } from 'src/utils/getImageUrl';
 import {usePostOrders} from 'src/api/bookstore/orders';
 
@@ -59,6 +59,7 @@ import { Skeleton } from '@mui/material';
 import { Box } from '@mui/system';
 import { PaymentMethod } from 'src/types/users';
 import { setPaymentDetails } from 'src/api/bookstore/cart';
+import { useSimpleSnackbar } from '@components/SimpleSnackbarProvider';
 
 // ==============================|| CHECKOUT PAYMENT - MAIN ||============================== //
 
@@ -119,7 +120,7 @@ export default function Payment({ checkout, onBack, onNext, removeProduct, editA
   const [typePayment, setTypePayment] = useState('');
   const [orderID, setOrderID] = useState('');
   const {postOrder} = usePostOrders();
-
+  const { showWarning, showError } = useSimpleSnackbar(); 
 
   const handleClickOpen = (billingAddress: Address | null) => {
     setOpen(true);
@@ -177,14 +178,7 @@ export default function Payment({ checkout, onBack, onNext, removeProduct, editA
 
   const completeHandler = () => {
     if (payment === 'card' && (tokens === '' || tokens === null)) {
-      openSnackbar({
-        open: true,
-        message: 'Selecciona un método de pago',
-        variant: 'alert',
-        alert: {
-          color: 'error'
-        }
-      } as SnackbarProps);
+      showWarning('Por favor, selecciona un método de pago');
     } else {
       onNext();
       setComplete(true);
@@ -515,14 +509,7 @@ export default function Payment({ checkout, onBack, onNext, removeProduct, editA
                       }}
                       onError={(err) => {
                         console.error('Error en el pago de PayPal', err);
-                        openSnackbar({
-                          open: true,
-                          message: 'Hubo un error con PayPal. Por favor, intenta de nuevo.',
-                          variant: 'alert',
-                          alert: {
-                            color: 'error'
-                          }
-                        } as SnackbarProps);
+                        showError('Error en el pago de PayPal');
                       }}
                     />
                   </PayPalScriptProvider>

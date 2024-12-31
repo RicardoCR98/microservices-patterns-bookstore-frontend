@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react';
-
+import { Link } from 'react-router-dom';
 // material-ui
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -32,18 +32,14 @@ import StarOutlined from '@ant-design/icons/StarOutlined';
 // types
 import { SnackbarProps } from 'src/types/snackbar';
 import { Products } from 'src/types/e-commerce';
-import { Link } from 'react-router-dom';
+import { useSimpleSnackbar } from '@components/SimpleSnackbarProvider';
 
 function ListProduct({ product }: { product: Products }) {
   const [wishlisted, setWishlisted] = useState<boolean>(false);
+  const { showInfo } = useSimpleSnackbar();
   const addToFavourite = () => {
     setWishlisted(!wishlisted);
-    openSnackbar({
-      open: true,
-      message: !wishlisted ? 'Added to favorites' : 'Removed from favorites',
-      variant: 'alert',
-      alert: { color: 'success' }
-    } as SnackbarProps);
+    showInfo(!wishlisted ? 'Añadido a favoritos' : 'Removido de favoritos');
   };
 
   return (
@@ -172,7 +168,7 @@ export default function RelatedProducts({ id }: { id?: string }) {
       <Grid item>
         <Stack>
           {productResult}
-          <Button color="secondary" variant="outlined" sx={{ mx: 2, my: 4, textTransform: 'none' }}>
+          <Button component={Link}  to="/home" color="secondary" variant="outlined" sx={{ mx: 2, my: 4, textTransform: 'none' }}>
             Ver todos los Productos
           </Button>
         </Stack>

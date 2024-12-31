@@ -13,7 +13,7 @@ import * as yup from 'yup';
 
 // project imports
 import CouponCode from './CouponCode';
-import { setCartDiscount, useGetCart } from 'src/api/bookstore/cart';
+// import { setCartDiscount, useGetCart } from 'src/api/bookstore/cart';
 import { openSnackbar } from 'src/api/snackbar';
 
 // types
@@ -28,7 +28,7 @@ const validationSchema = yup.object({
 export default function CartDiscount() {
   const [open, setOpen] = useState(false);
   const [coupon, setCoupon] = useState<string>('');
-  const { cart } = useGetCart();
+  // const { cart } = useGetCart();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,7 +45,7 @@ export default function CartDiscount() {
     },
     validationSchema,
     onSubmit: (values) => {
-      setCartDiscount(values.code, cart.total);
+      // setCartDiscount(values.code, cart.total);
       openSnackbar({
         open: true,
         message: 'Coupon Add Success',

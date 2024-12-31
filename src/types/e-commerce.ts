@@ -21,8 +21,33 @@
 //   new?: number;
 // };
 
+export enum Category {
+  FICCION = 'FICCION',
+  NO_FICCION = 'NO_FICCION',
+  LIBROS_INFANTILES = 'LIBROS_INFANTILES',
+  JUVENIL = 'JUVENIL',
+  BIOGRAFIA_Y_MEMORIAS = 'BIOGRAFIA_Y_MEMORIAS',
+  AUTOAYUDA = 'AUTOAYUDA',
+  LIBROS_DE_TEXTO = 'LIBROS_DE_TEXTO',
+  COMICS_Y_NOVELAS_GRAFICAS = 'COMICS_Y_NOVELAS_GRAFICAS'
+}
+
+export enum Genre {
+  AVENTURA = 'AVENTURA',
+  ROMANCE = 'ROMANCE',
+  SUSPENSO = 'SUSPENSO',
+  FANTASIA = 'FANTASIA',
+  CIENCIA_FICCION = 'CIENCIA_FICCION'
+}
+
+export enum Condition {
+  NUEVO = 'NUEVO',
+  USADO = 'USADO'
+}
+
 export type Products = {
   id: string;
+  userId?: string | number;
   title: string;
   author?: string;
   isbn?: string;
@@ -40,6 +65,7 @@ export type Products = {
   rating?: number;
   isAvailable?: boolean;
   npages?: number | null;
+  datePublish?: Date; 
 };
 
 

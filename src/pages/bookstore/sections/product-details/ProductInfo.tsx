@@ -26,7 +26,7 @@ import ColorOptions from '../products/ColorOptions';
 import Avatar from '@components/@extended/Avatar';
 
 import { addToCart, useGetCart } from 'src/api/bookstore/cart';
-import { openSnackbar } from 'src/api/snackbar';
+// import { openSnackbar } from 'src/api/snackbar';
 import { ThemeMode } from 'src/config';
 
 // assets
@@ -38,6 +38,7 @@ import UpOutlined from '@ant-design/icons/UpOutlined';
 // types
 import { ColorsOptionsProps, Products } from 'src/types/e-commerce';
 import { SnackbarProps } from 'src/types/snackbar';
+import { useSimpleSnackbar } from '@components/SimpleSnackbarProvider';
 
 // product color select
 function getColor(color: string) {
@@ -90,7 +91,7 @@ export default function ProductInfo({ product }: { product: Products }) {
   const [value, setValue] = useState<number>(1);
   const history = useNavigate();
   const { cart } = useGetCart();
-
+  const { showSuccess } = useSimpleSnackbar();
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -108,14 +109,7 @@ export default function ProductInfo({ product }: { product: Products }) {
     onSubmit: (values) => {
       values.quantity = value;
       addToCart(values, cart.products);
-      openSnackbar({
-        open: true,
-        message: 'Submit Success',
-        variant: 'alert',
-        alert: {
-          color: 'success'
-        }
-      } as SnackbarProps);
+      showSuccess('Producto añadido al carrito con éxito');
 
       history('/apps/e-commerce/checkout');
     }
@@ -127,14 +121,7 @@ export default function ProductInfo({ product }: { product: Products }) {
     // values.color = values.color ? values.color : 'primaryDark';
     values.quantity = value;
     addToCart(values, cart.products);
-    openSnackbar({
-      open: true,
-      message: 'Add To Cart Success',
-      variant: 'alert',
-      alert: {
-        color: 'success'
-      }
-    } as SnackbarProps);
+    showSuccess('Producto añadido al carrito con éxito');
   };
 
   return (
@@ -150,17 +137,33 @@ export default function ProductInfo({ product }: { product: Products }) {
         />
         <Typography color="text.secondary">({product.rating?.toFixed(1)})</Typography>
       </Stack>
-      <Typography variant="h3">{product.title}</Typography>
-      <Chip
-        size="small"
-        label={product.isAvailable ? 'En Stock' : 'Fuera de Stock'}
-        sx={{
-          width: 'fit-content',
-          borderRadius: '4px',
-          color: product.isAvailable ? 'success.main' : 'error.main',
-          bgcolor: product.isAvailable ? 'success.lighter' : 'error.lighter'
-        }}
-      />
+      <Stack direction="row" spacing={1}>
+        <Typography variant="h3">{product.title}</Typography>
+        <Chip
+          size="small"
+          label={product.isAvailable ? 'En Stock' : 'Fuera de Stock'}
+          sx={{
+            width: 'fit-content',
+            borderRadius: '4px',
+            color: product.isAvailable ? 'success.main' : 'error.main',
+            bgcolor: product.isAvailable ? 'success.lighter' : 'error.lighter'
+          }}
+        />
+      </Stack>
+      <Typography color="text.secondary">
+        Condición:{' '}
+        <Chip
+          size="small"
+          label={product.condition ? 'NUEVO' : 'USADO'}
+          sx={{
+            width: 'fit-content',
+            borderRadius: '4px',
+            color: product.condition ? 'primary.main' : 'error.main',
+            bgcolor: product.condition ? 'primary.lighter' : 'error.lighter'
+          }}
+        />
+      </Typography>
+
       <Typography color="text.secondary">
         Número de Páginas:{' '}
         <Chip
@@ -170,10 +173,12 @@ export default function ProductInfo({ product }: { product: Products }) {
             width: 'fit-content',
             borderRadius: '4px',
             color: 'primary.main',
-            bgcolor: 'primary.lighter'}}
+            bgcolor: 'primary.lighter'
+          }}
         />
       </Typography>
       <Typography color="text.secondary">{product.description}</Typography>
+
       <FormikProvider value={formik}>
         <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
           <Stack spacing={2.5}>

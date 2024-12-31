@@ -21,14 +21,15 @@ import MainCard from '@components/organisms/bookstore/MainCard';
 import IconButton from '@components/@extended/IconButton';
 import AnimateButton from '@components/@extended/AnimateButton';
 import { PopupTransition } from '@components/@extended/Transitions';
-import { openSnackbar } from 'src/api/snackbar';
+// import { openSnackbar } from 'src/api/snackbar';
 
 // types
-import { SnackbarProps } from 'src/types/snackbar';
+// import { SnackbarProps } from 'src/types/snackbar';
 import { Address } from 'src/types/e-commerce';
 
 // assets
 import CloseCircleTwoTone from '@ant-design/icons/CloseCircleTwoTone';
+import { useSimpleSnackbar } from '@components/SimpleSnackbarProvider';
 
 const validationSchema = yup.object({
   destination: yup.string().required('Color selection is required'),
@@ -52,7 +53,7 @@ interface AddAddressProps {
 
 export default function AddAddress({ address, open, handleClose, editAddress }: AddAddressProps) {
   const edit = address && address.id;
-
+  const { showSuccess, showInfo } = useSimpleSnackbar(); 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -71,14 +72,7 @@ export default function AddAddress({ address, open, handleClose, editAddress }: 
     onSubmit: (values) => {
       editAddress({ ...values, id: address.id });
       handleClose();
-      openSnackbar({
-        open: true,
-        message: 'Submit Success',
-        variant: 'alert',
-        alert: {
-          color: 'success'
-        }
-      } as SnackbarProps);
+      showSuccess('Dirección añadida con éxito');
     }
   });
 

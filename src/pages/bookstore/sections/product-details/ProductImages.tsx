@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack';
 import MainCard from '@components/organisms/bookstore/MainCard';
 import IconButton from '@components/@extended/IconButton';
 import { ThemeMode } from 'src/config';
-import { openSnackbar } from 'src/api/snackbar';
+// import { openSnackbar } from 'src/api/snackbar';
 
 // Third-party
 import { TransformWrapper, TransformComponent, ReactZoomPanPinchHandlers } from 'react-zoom-pan-pinch';
@@ -26,24 +26,18 @@ import HeartOutlined from '@ant-design/icons/HeartOutlined';
 // types
 import { SnackbarProps } from 'src/types/snackbar';
 import { Products } from 'src/types/e-commerce';
+import { useSimpleSnackbar } from '@components/SimpleSnackbarProvider';
 
 // ==============================|| PRODUCT DETAILS - IMAGE ||============================== //
 
 export default function ProductImages({ product }: { product: Products }) {
   const theme = useTheme();
   const downMD = useMediaQuery(theme.breakpoints.down('md'));
-
+  const { showInfo } = useSimpleSnackbar();
   const [wishlisted, setWishlisted] = useState<boolean>(false);
   const addToFavourite = () => {
     setWishlisted(!wishlisted);
-    openSnackbar({
-      open: true,
-      message: !wishlisted ? 'Añadido a favoritos' : 'Eliminado de favoritos',
-      variant: 'alert',
-      alert: {
-        color: 'success'
-      }
-    } as SnackbarProps);
+    showInfo(!wishlisted ? 'Añadido a favoritos' : 'Removido de favoritos');
   };
 
   // Estado para almacenar la URL de la imagen

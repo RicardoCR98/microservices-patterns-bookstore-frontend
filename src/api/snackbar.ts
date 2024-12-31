@@ -10,7 +10,7 @@ export const endpoints = {
 
 const initialState: SnackbarProps = {
   action: false,
-  open: false,
+  open: true,
   message: 'Note archived',
   anchorOrigin: {
     vertical: 'bottom',

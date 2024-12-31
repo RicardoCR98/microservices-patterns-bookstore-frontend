@@ -129,7 +129,7 @@ export default function ProductDetails() {
                 >
                   {/* <Tab component={Link} to="#" label="Features" {...a11yProps(0)} /> */}
                   <Tab component={Link} to="#" label="Especificaciones" {...a11yProps(0)} />
-                  <Tab component={Link} to="#" label="Resumen" {...a11yProps(1)} />
+                  {/* <Tab component={Link} to="#" label="Resumen" {...a11yProps(1)} /> */}
                   {/* <Tab
                     component={Link}
                     to="#"
@@ -159,7 +159,7 @@ export default function ProductDetails() {
               <TabPanel value={value} index={0}>
                 {product && <ProductSpecifications product={product} />}
               </TabPanel>
-              <TabPanel value={value} index={1}>
+              {/* <TabPanel value={value} index={1}>
                 <Stack spacing={2.5}>
                   <Typography color="text.secondary">
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard
@@ -177,7 +177,7 @@ export default function ProductDetails() {
                     with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                   </Typography>
                 </Stack>
-              </TabPanel>
+              </TabPanel> */}
               {/* <TabPanel value={value} index={3}>
                 <ProductReview product={product} />
               </TabPanel> */}

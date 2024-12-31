@@ -17,7 +17,7 @@ import CartEmpty from './CartEmpty';
 import Payment from './Payment';
 
 import { updateAddress } from 'src/api/bookstore/address';
-import { openSnackbar } from 'src/api/snackbar';
+// import { openSnackbar } from 'src/api/snackbar';
 import { removeCartProduct, setBackStep, setBillingAddress, setCheckoutStep, setNextStep, updateCartProduct } from 'src/api/bookstore/cart';
 
 // types
@@ -28,6 +28,7 @@ import { Address } from 'src/types/cart';
 
 // assets
 import CheckOutlined from '@ant-design/icons/CheckOutlined';
+import { useSimpleSnackbar } from '@components/SimpleSnackbarProvider';
 
 interface TabOptionProps {
   label: string;
@@ -87,7 +88,7 @@ function TabPanel({ children, value, index, ...other }: TabsProps) {
 
 export default function CheckoutTab({ cart }: { cart: CartCheckoutStateProps }) {
   const isCart = cart.products && cart.products.length > 0;
-
+  const { showSuccess, showError } = useSimpleSnackbar(); 
   const [value, setValue] = useState(cart.step > 2 ? 2 : cart.step);
   const [billing, setBilling] = useState(cart.billing);
 
@@ -106,14 +107,7 @@ export default function CheckoutTab({ cart }: { cart: CartCheckoutStateProps }) 
 
   const removeProduct = (id: string | number | undefined) => {
     removeCartProduct(id!, cart.products);
-    openSnackbar({
-      open: true,
-      message: 'Update Cart Success',
-      variant: 'alert',
-      alert: {
-        color: 'success'
-      }
-    } as SnackbarProps);
+    showSuccess("Carrito actualizado con éxito");
   };
 
   const updateQuantity = (id: string | number | undefined, quantity: number) => {
@@ -137,14 +131,7 @@ export default function CheckoutTab({ cart }: { cart: CartCheckoutStateProps }) 
       setBillingAddress(addressBilling !== null ? addressBilling : billing);
       onNext();
     } else {
-      openSnackbar({
-        open: true,
-        message: 'Please select delivery address',
-        variant: 'alert',
-        alert: {
-          color: 'error'
-        }
-      } as SnackbarProps);
+      showError("Por favor, seleccione una dirección de facturación");
     }
   };
 
