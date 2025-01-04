@@ -108,19 +108,27 @@ export default function ProductInfo({ product }: { product: Products }) {
     validationSchema,
     onSubmit: (values) => {
       values.quantity = value;
-      addToCart(values, cart.products);
+      const base64Image = typeof product.cover === "string" ? product.cover : "";
+      const imageSrc = base64Image.startsWith("data:image")
+        ? base64Image
+        : `data:image/png;base64,${base64Image}`; 
+      addToCart({ ...values, image:imageSrc }, cart.products);
       showSuccess('Producto añadido al carrito con éxito');
 
-      history('/apps/e-commerce/checkout');
+      history('/my-books');
     }
   });
 
   const { errors, values, handleSubmit, handleChange } = formik;
 
   const addCart = () => {
+    const base64Image = typeof product.cover === "string" ? product.cover : "";
+    const imageSrc = base64Image.startsWith("data:image")
+      ? base64Image
+      : `data:image/png;base64,${base64Image}`; // Asegurarse del formato de la imagen
     // values.color = values.color ? values.color : 'primaryDark';
     values.quantity = value;
-    addToCart(values, cart.products);
+    addToCart({ ...values, image: imageSrc }, cart.products);
     showSuccess('Producto añadido al carrito con éxito');
   };
 

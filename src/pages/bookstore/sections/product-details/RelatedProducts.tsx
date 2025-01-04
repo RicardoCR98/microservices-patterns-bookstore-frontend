@@ -41,6 +41,10 @@ function ListProduct({ product }: { product: Products }) {
     setWishlisted(!wishlisted);
     showInfo(!wishlisted ? 'Añadido a favoritos' : 'Removido de favoritos');
   };
+  const base64Image = typeof product.cover === "string" ? product.cover : "";
+  const imageSrc = base64Image.startsWith("data:image")
+    ? base64Image
+    : `data:image/png;base64,${base64Image}`; // Asegurarse del formato de la imagen
 
   return (
     <ListItemButton divider component={Link} to={`/product/${product.id}`}>
@@ -51,7 +55,7 @@ function ListProduct({ product }: { product: Products }) {
           color="secondary"
           variant="rounded"
           type="combined"
-          src={product.cover}
+          src={imageSrc}
           sx={{ borderColor: 'divider', mr: 1 }}
         />
       </ListItemAvatar>

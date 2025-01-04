@@ -46,7 +46,7 @@ export enum Condition {
 }
 
 export type Products = {
-  id: string;
+  id?: string;
   userId?: string | number;
   title: string;
   author?: string;
@@ -60,7 +60,7 @@ export type Products = {
   salePrice?: number;
   offerPrice?: number;
   offer?: number|string; 
-  cover: string;
+  cover: string| File;
   condition?: string;
   rating?: number;
   isAvailable?: boolean;

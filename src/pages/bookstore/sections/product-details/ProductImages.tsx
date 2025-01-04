@@ -44,8 +44,12 @@ export default function ProductImages({ product }: { product: Products }) {
   const [selected, setSelected] = useState<string>('');
 
   useEffect(() => {
+    const base64Image = typeof product.cover === "string" ? product.cover : "";
+    const imageSrc = base64Image.startsWith("data:image")
+      ? base64Image
+      : `data:image/png;base64,${base64Image}`; // Asegurarse del formato de la imagen
     if (product && product.cover) {
-      setSelected(product.cover); // Asumiendo que product.cover ya es una URL completa
+      setSelected(imageSrc); 
     }
   }, [product]);
 

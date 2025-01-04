@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-
+import{ Link } from "react-router-dom";
 // material-ui
 import {
   Box,
@@ -20,7 +20,8 @@ import Grid from "@mui/material/Grid2";
 
 import { ThemeMode } from "src/config";
 import Avatar from "@components/@extended/Avatar";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook } from '@fortawesome/free-solid-svg-icons'; 
 // assets
 import avatar1 from "@assets/images/users/avatar-1.png";
 import Transitions from "@components/@extended/Transitions";
@@ -148,13 +149,18 @@ export const Profile = () => {
                     component="nav"
                     sx={{ p: 0, "& .MuiListItemIcon-root": { minWidth: 32 } }}
                   >
+                    <ListItemButton component={Link} to="/my-books">
+                      <ListItemIcon>
+                        <FontAwesomeIcon icon={faBook} />
+                      </ListItemIcon>
+                      <ListItemText primary="Mis libros" />
+                    </ListItemButton>
                     <ListItemButton>
                       <ListItemIcon>
                         <UserOutlined />
                       </ListItemIcon>
                       <ListItemText primary="Configuración del perfil" />
-                    </ListItemButton>
-                    
+                    </ListItemButton> 
                     <ListItemButton onClick={handleLogout}>
                       <ListItemIcon>
                         <LogoutOutlined />

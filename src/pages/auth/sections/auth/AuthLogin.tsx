@@ -67,14 +67,14 @@ const { showSuccess } = useSimpleSnackbar();
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <Grid2 container spacing={1}>
-              <Grid2 size={{ xs: 12 }}>
+              {/* <Grid2 size={{ xs: 12 }}>
                 <AuthSocial />
               </Grid2>
               <Grid2 size={{ xs: 12 }}>
                 <Divider>
                   <Typography variant="caption"> o ingrese con el Email </Typography>
                 </Divider>
-              </Grid2>
+              </Grid2> */}
               <Grid2 size={{ xs: 12 }}>
                 <Stack spacing={1}>
                   <InputLabel htmlFor="email-login">Correo electrónico</InputLabel>

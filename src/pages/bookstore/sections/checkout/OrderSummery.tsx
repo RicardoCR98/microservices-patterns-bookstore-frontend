@@ -33,12 +33,12 @@ export default function OrderSummary({ checkout, show }: { checkout: CartCheckou
                   <TableCell />
                 </TableRow>
               )}
-              <TableRow>
+              {/* <TableRow>
                 <TableCell sx={{ borderBottom: 'none', opacity: 0.5 }}>Sub Total</TableCell>
                 <TableCell align="right" sx={{ borderBottom: 'none' }}>
                   {checkout.subtotal && <Typography variant="subtitle1">{currency(checkout.subtotal).format()}</Typography>}
                 </TableCell>
-              </TableRow>
+              </TableRow> */}
               {/* <TableRow>
                 <TableCell sx={{ borderBottom: 'none', opacity: 0.5 }}>Estimated Delivery</TableCell>
                 <TableCell align="right" sx={{ borderBottom: 'none' }}>

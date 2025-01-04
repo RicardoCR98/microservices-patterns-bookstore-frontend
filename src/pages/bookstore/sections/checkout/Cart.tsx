@@ -108,7 +108,7 @@ export default function Cart({ checkout, onNext, removeProduct, updateQuantity }
   }, [checkout.products]);
 
   console.log('rows', rows);
-
+  
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={8}>

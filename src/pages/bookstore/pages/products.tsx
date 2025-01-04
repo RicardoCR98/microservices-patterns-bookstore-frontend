@@ -18,7 +18,7 @@ import { resetCart, useGetCart } from 'src/api/bookstore/cart';
 import { filterProducts, fetchInitialProducts } from 'src/api/bookstore/products';
 
 // types
-import { Products as ProductsTypo, ProductsFilter } from 'src/types/e-commerce';
+import { Products as ProductsTypo, ProductsFilter, Products } from 'src/types/e-commerce';
 
 const Main = styled('main', { 
   shouldForwardProp: (prop) => prop !== 'open' && prop !== 'container' 
@@ -159,24 +159,32 @@ useEffect(() => {
   // Renderizado de productos
   let productResult: ReactElement | ReactElement[] = <></>;
   if (products.length > 0) {
-    productResult = products.map((product: ProductsTypo, index: number) => (
-      <Grid key={index} item xs={12} sm={6} md={4}>
-        <ProductCard
-          id={product.id}
-          image={product.cover}
-          name={product.title}
-          publisher={product.publisher}
-          offer={product.offer}
-          isStock={product.isAvailable}
-          description={product.description}
-          offerPrice={product.offerPrice}
-          salePrice={product.salePrice}
-          rating={product.rating}
-          author = {product.author}
-        />
-      </Grid>
-    ));
-  } else {
+    productResult = products.map((product: Products, index: number) => {
+      // Si el cover es una cadena Base64, convertirla a una URL válida
+      const base64Image = typeof product.cover === "string" ? product.cover : "";
+      const imageSrc = base64Image.startsWith("data:image")
+        ? base64Image
+        : `data:image/png;base64,${base64Image}`; // Asegurarse del formato de la imagen
+  
+      return (
+        <Grid key={index} item xs={12} sm={6} md={4}>
+          <ProductCard
+            id={product.id}
+            image={imageSrc} // Pasar la URL generada como `image`
+            name={product.title}
+            publisher={product.publisher}
+            offer={product.offer}
+            isStock={product.isAvailable}
+            description={product.description}
+            offerPrice={product.offerPrice}
+            salePrice={product.salePrice}
+            rating={product.rating}
+            author={product.author}
+          />
+        </Grid>
+      );
+    });
+  }  else {
     productResult = (
       <Grid item xs={12} sx={{ mt: 3 }}>
         <ProductEmpty handelFilter={() => setFilter(initialState)} />

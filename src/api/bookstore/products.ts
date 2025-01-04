@@ -1,6 +1,5 @@
 import axios from '@utils/axios';
-import { Products, ProductsFilter  } from 'src/types/e-commerce';
-
+import { Products, ProductsFilter } from 'src/types/e-commerce';
 
 // ⬇️ Obtener userId de localStorage
 function getUserIdFromLocalStorage(): string | null {
@@ -21,37 +20,47 @@ function getUserIdFromLocalStorage(): string | null {
 export async function fetchInitialProducts(): Promise<Products[]> {
   try {
     const response = await axios.get('/api/products');
-    // console.log('Respuesta crudassss del backend:', response.data); 
-    return response.data as Products[]; 
+    // console.log('Respuesta crudassss del backend:', response.data);
+    return response.data as Products[];
   } catch (error) {
     console.error('Error fetching products:', error);
-    throw new Error('Could not fetch products'); 
+    throw new Error('Could not fetch products');
   }
 }
 
-// ⬇️ Crear o publicar un nuevo libro (POST /api/products)
-export async function createNewProduct(productData: Omit<Products, 'userId'>): Promise<Products> {
+// Cargar productos
+export async function createNewProduct(productData: Products): Promise<Products> {
   try {
-    // 1. Recuperamos el userId del localStorage
+    // 1. Recuperamos el userId
     const userId = getUserIdFromLocalStorage();
     if (!userId) {
       throw new Error('No userId found in localStorage');
     }
 
-    // 2. Creamos el payload que enviará al backend
-    const payload: Products = {
+    // 2. Construimos el objeto JSON que irá en la parte "product"
+    const productPayload: Products = {
       ...productData,
-      userId: Number(userId) 
+      userId: Number(userId)
     };
 
-    // 3. Llamamos al backend
-    const response = await axios.post('/api/products', payload);
+    // 1. Extraemos cover para no meterlo en JSON
+    const { cover, ...cleanedPayload } = productPayload;
 
-    // 4. Retornamos el producto creado 
+    // 2. Creamos el FormData
+    const formData = new FormData();
+
+    // => Agregamos el "product" sin cover
+    formData.append('product', new Blob([JSON.stringify(cleanedPayload)], { type: 'application/json' }));
+
+    // => Agregamos la parte binaria
+    if (cover && typeof cover !== 'string') {
+      formData.append('cover', cover);
+    }
+
+    const response = await axios.post('/api/products/with-cover', formData);
     return response.data as Products;
-
   } catch (error) {
-    console.error('Error creating product:', error);
+    console.error('Error creando producto:', error);
     throw new Error('Could not create product');
   }
 }
@@ -67,7 +76,7 @@ export async function fetchUserProducts(): Promise<Products[]> {
 
     // 2. Llamamos al backend para obtener los productos del usuario
     const response = await axios.get(`/api/products/user/${userId}`);
-
+    console.log('Respuesta de productos del usuario:', response.data);
     // 3. Retornamos la lista de productos
     return response.data as Products[];
   } catch (error) {
@@ -79,43 +88,21 @@ export async function fetchUserProducts(): Promise<Products[]> {
 // ⬇️ Filtrar productos
 export async function filterProducts(filter: ProductsFilter): Promise<{ data: Products[] }> {
   try {
-    const response = await axios.post('/api/products/filter', filter );
+    const response = await axios.post('/api/products/filter', filter);
     // console.log('Respuesta cruda del backend:', response.data);
-    return response.data; 
+    return response.data;
   } catch (error) {
     console.error('Error filtering products:', error);
     throw new Error('Could not filter products');
   }
 }
 
-// export async function filterProducts(filter: ProductsFilter): Promise<Products[]> {
-//   try {
-//     const response = await axios.post('/api/products/filter', filter);
-
-//     // Ajusta dependiendo de la estructura que devuelva el backend
-//     console.log("Filter response", response.data);
-
-//     if (Array.isArray(response.data)) {
-//       // Si el backend devuelve directamente un array
-//       return response.data;
-//     } else if (response.data?.data) {
-//       // Si el backend devuelve un objeto con "data"
-//       return response.data.data;
-//     } else {
-//       throw new Error('Unexpected response structure');
-//     }
-//   } catch (error) {
-//     console.error('Error filtering products:', error);
-//     throw new Error('Could not filter products');
-//   }
-// }
-
-// ⬇️ Cargar detalles de un producto 
+// ⬇️ Cargar detalles de un producto
 export async function productLoader({ params }: { params: { id?: string } }): Promise<Products> {
   try {
     const response = await axios.get(`/api/products/${params.id}`);
     // console.log('Respuesta del detalle:', response.data);
-    return response.data as Products; 
+    return response.data as Products;
   } catch (error) {
     console.error('Error loading product details:', error);
     throw new Error('Could not load product details');
@@ -125,17 +112,16 @@ export async function productLoader({ params }: { params: { id?: string } }): Pr
 // ⬇️ Obtener productos relacionados
 export async function getRelatedProducts(id?: string): Promise<Products[]> {
   try {
-    const response = await axios.get(`/api/products/${id}/related`); 
+    const response = await axios.get(`/api/products/${id}/related`);
     // console.log('Respuesta de productos relacionados:', response.data);
-    return response.data as Products[]; 
+    return response.data as Products[];
   } catch (error) {
     console.error('Error fetching related products:', error);
     throw new Error('Could not fetch related products');
   }
 }
 
-
-// ⬇️ Obtener reseñas de productos 
+// ⬇️ Obtener reseñas de productos
 export async function getProductReviews(): Promise<any> {
   try {
     const response = await axios.get('/api/review/list');
@@ -143,5 +129,15 @@ export async function getProductReviews(): Promise<any> {
   } catch (error) {
     console.error('Error fetching product reviews:', error);
     throw new Error('Could not fetch product reviews');
+  }
+}
+
+// ⬇️ Eliminar producto
+export async function deleteProduct(id: number): Promise<void> {
+  try {
+    await axios.delete(`/api/products/${id}`);
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    throw new Error('Could not delete product');
   }
 }

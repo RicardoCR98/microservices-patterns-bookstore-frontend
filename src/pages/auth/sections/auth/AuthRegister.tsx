@@ -213,14 +213,14 @@ export const AuthRegister = () => {
                   </Button>
                 </AnimateButton>
               </Grid2>
-              <Grid2 size={{xs:12}}>
+              {/* <Grid2 size={{xs:12}}>
                 <Divider>
                   <Typography variant="caption">Regístrate con</Typography>
                 </Divider>
               </Grid2>
               <Grid2 size={{ xs: 12 }}>
                 <AuthSocial />
-              </Grid2>
+              </Grid2> */}
             </Grid2>
           </form>
         )}
