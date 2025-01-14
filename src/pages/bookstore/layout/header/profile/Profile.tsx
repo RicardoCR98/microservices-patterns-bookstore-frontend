@@ -155,12 +155,12 @@ export const Profile = () => {
                       </ListItemIcon>
                       <ListItemText primary="Mis libros" />
                     </ListItemButton>
-                    <ListItemButton>
+                    {/* <ListItemButton>
                       <ListItemIcon>
                         <UserOutlined />
                       </ListItemIcon>
                       <ListItemText primary="Configuración del perfil" />
-                    </ListItemButton> 
+                    </ListItemButton>  */}
                     <ListItemButton onClick={handleLogout}>
                       <ListItemIcon>
                         <LogoutOutlined />

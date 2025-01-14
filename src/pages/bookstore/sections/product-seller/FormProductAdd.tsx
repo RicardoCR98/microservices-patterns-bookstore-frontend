@@ -109,11 +109,11 @@ const FormProductAdd: React.FC<BookFormProps> = ({ initialValues, onSubmit, clos
   };
 
   // Función de debug (opcional)
-  const handleDebug = () => {
-    console.log('Errores de Formik:', errors);
-    console.log('Campos tocados:', touched);
-    console.log('Valores actuales:', values);
-  };
+  // const handleDebug = () => {
+  //   console.log('Errores de Formik:', errors);
+  //   console.log('Campos tocados:', touched);
+  //   console.log('Valores actuales:', values);
+  // };
 
   return (
     <FormikProvider value={formik}>
@@ -342,7 +342,7 @@ const FormProductAdd: React.FC<BookFormProps> = ({ initialValues, onSubmit, clos
           </Grid>
 
           {/* Sección de Depuración (opcional) */}
-          <Box sx={{ mt: 4 }}>
+          {/* <Box sx={{ mt: 4 }}>
             <Typography variant="h6">Depuración</Typography>
             <Button variant="outlined" onClick={handleDebug} sx={{ mb: 2 }}>
               Mostrar Logs en Consola
@@ -350,7 +350,7 @@ const FormProductAdd: React.FC<BookFormProps> = ({ initialValues, onSubmit, clos
             <pre>{JSON.stringify(values, null, 2)}</pre>
             <pre>{JSON.stringify(errors, null, 2)}</pre>
             <pre>{JSON.stringify(touched, null, 2)}</pre>
-          </Box>
+          </Box> */}
         </DialogContent>
 
         <DialogActions>
