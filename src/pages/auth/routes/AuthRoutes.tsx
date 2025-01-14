@@ -1,17 +1,30 @@
-import { Navigate, Route, Routes } from "react-router-dom"
-import { LoginPage, RegisterPage, ForgotPasswordPage,RegisterCompletePage, AdminLoginPage } from "../pages"
-
+import { Navigate, Route, Routes } from "react-router-dom";
+import {
+  LoginPage,
+  RegisterPage,
+  ForgotPasswordPage,
+  RegisterCompletePage,
+  AdminLoginPage,
+} from "../pages";
 
 export const AuthRoutes = () => {
   return (
     <Routes>
-        <Route path="login" element={<LoginPage/>} />
-        <Route path="register" element={<RegisterPage/>} />
-        <Route path="register/:token" element={<RegisterCompletePage />} />
-        <Route path="forgotPassword" element={<ForgotPasswordPage/>}/>
-        <Route path="a/login" element={<AdminLoginPage/>}/>
-        <Route path="*" element={<Navigate to="/login"/>} />
+      {/* Login de usuario normal */}
+      <Route path="login" element={<LoginPage />} />
+
+      {/* Registro de usuario */}
+      <Route path="register" element={<RegisterPage />} />
+      <Route path="register/:token" element={<RegisterCompletePage />} />
+
+      {/* Recuperar contraseña */}
+      <Route path="forgotPassword" element={<ForgotPasswordPage />} />
+
+      {/* Login de administrador */}
+      <Route path="a/login" element={<AdminLoginPage />} />
+
+      {/* Cualquier otra ruta dentro de /auth redirige a login */}
+      <Route path="*" element={<Navigate to="/auth/login" />} />
     </Routes>
-  )
-}
-// auth/register/0DfbiHF4zSr60UuB21e  
+  );
+};
