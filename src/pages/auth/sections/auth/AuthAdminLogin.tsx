@@ -128,7 +128,7 @@ export const AuthAdminLogin = () => {
                   </FormHelperText>
                 )}
               </Grid>
-              <Grid size={{ xs: 12 }} sx={{ mt: -1 }}>
+              {/* <Grid size={{ xs: 12 }} sx={{ mt: -1 }}>
                 <Stack
                   direction="row"
                   justifyContent="space-between"
@@ -160,7 +160,7 @@ export const AuthAdminLogin = () => {
                     ¿Ha olvidado su contraseña?
                   </Link>
                 </Stack>
-              </Grid>
+              </Grid> */}
               {/* Captcha */}
               <Grid
                 size={{ xs: 12 }}

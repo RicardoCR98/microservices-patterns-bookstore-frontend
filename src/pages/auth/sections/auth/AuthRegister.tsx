@@ -73,7 +73,7 @@ export const AuthRegister = () => {
 
             // Redirige a la pantalla de login
             navigate("/auth/login");
-            showSuccess('Usuario registrado con éxito');
+            // showSuccess('Usuario registrado con éxito');
           } catch (error) {
             console.error("Error en el registro:", error);
           } finally {

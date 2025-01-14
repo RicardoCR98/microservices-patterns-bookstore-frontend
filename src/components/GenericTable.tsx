@@ -36,7 +36,6 @@ import {
 } from "./react-table";
 import "src/assets/third-party/react-table.css";
 // Types
-// import { Products } from "src/types/e-commerce";
 import { LabelKeyObject } from "react-csv/lib/core";
 import {
   DownOutlined,
@@ -48,7 +47,6 @@ import IconButton from "src/components/@extended/IconButton";
 import { ArrowLeftIcon } from "@mui/x-date-pickers";
 import { KeyedObject } from "src/types/root";
 import { v4 as uuidv4 } from "uuid";
-import { Products } from "src/types/e-commerce";
 interface GenericTableProps<T> {
   columns: ColumnDef<T>[];
   isSearchable?: boolean;
@@ -70,7 +68,7 @@ interface GenericTableProps<T> {
   onClickBackButton?: React.MouseEventHandler<HTMLButtonElement>;
   onEdit?: (data: T) => void;
   onDelete?: (data: T) => void;
-  onFunction?: (data: T[]) => Promise<Products[]>; 
+  onFunction?: (data: T[]) => Promise<T[any]>; 
   sticky?: boolean;
   maxHeight?: number | string;
 }
@@ -81,7 +79,7 @@ const GenericTable = <T extends KeyedObject>({
   isSearchable = false,
   expandable = false,
   // columnResizing = false,
-  emptyTableMessage = "No Data",
+  emptyTableMessage = "No hay datos para mostrar",
   topPagination = false,
   bottomPagination = false,
   title,

@@ -131,7 +131,7 @@ const { showSuccess } = useSimpleSnackbar();
                 )}
               </Grid2>
               <Grid2 size={{ xs: 12 }}>
-                <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
+                {/* <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -147,7 +147,7 @@ const { showSuccess } = useSimpleSnackbar();
                   <Link variant="body2" component={RouterLink} to={'/auth/forgotPassword'} color="text.primary">
                     ¿Ha olvidado su contraseña?
                   </Link>
-                </Stack>
+                </Stack> */}
               </Grid2>
               {/* Captcha */}
               <Grid2 size={{ xs: 12 }} container justifyContent="center" alignItems="center" sx={{ mt: -0.5 }}>
