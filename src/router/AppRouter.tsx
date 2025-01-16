@@ -10,17 +10,22 @@ import { ProtectedRoute } from "./ProtectedRoute";
 export const AppRouter = () => {
   const { role, status } = useCheckAuth();
   const navigate = useNavigate();
-
-  // Redirección inicial después de la autenticación
   const location = useLocation();
+
+  const validUserPaths = ["/home", "/product", "/checkout", "/my-books"]; // Añade todas las rutas válidas para USER
 
   useEffect(() => {
     if (status === "authenticated") {
       if (role === "USER") {
-        navigate("/home", { replace: true });
+        // Verifica si la ruta actual es válida para el rol USER
+        const isValidUserPath = validUserPaths.some((path) =>
+          location.pathname.startsWith(path)
+        );
+
+        if (!isValidUserPath) {
+          navigate("/home", { replace: true });
+        }
       } else if (role === "ADMIN") {
-        // Si NO estamos ya en /a/dashboard/usuarios (o cualquier ruta de /a/)
-        // entonces sí navega a /a/dashboard
         if (!location.pathname.startsWith("/a/")) {
           navigate("/a/dashboard", { replace: true });
         }
