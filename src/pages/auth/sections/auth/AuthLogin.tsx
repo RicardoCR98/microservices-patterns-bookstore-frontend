@@ -131,7 +131,7 @@ const { showSuccess } = useSimpleSnackbar();
                 )}
               </Grid2>
               <Grid2 size={{ xs: 12 }}>
-                {/* <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
+                 {/*<Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -140,7 +140,7 @@ const { showSuccess } = useSimpleSnackbar();
                         name="checked"
                         color="primary"
                         size="small"
-                      />
+                      />W
                     }
                     label={<Typography variant="body2">Mantener sesión iniciada</Typography>}
                   />

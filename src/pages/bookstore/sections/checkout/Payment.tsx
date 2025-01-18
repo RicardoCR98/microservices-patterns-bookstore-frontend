@@ -107,7 +107,7 @@ export default function Payment({ checkout, onBack, onNext, removeProduct, editA
   const { showWarning, showError, showSuccess } = useSimpleSnackbar();
 
   // Estado local
-  const [payment, setPayment] = useState(checkout.payment.type); // "paypal", "card", etc.
+  const [payment, setPayment] = useState('paypal');// "paypal", "card", etc.
   const [tokens, setTokens] = useState(checkout.payment.token);
   const [open, setOpen] = useState(false);
   const [select, setSelect] = useState<Address | null>(null);
@@ -238,14 +238,14 @@ export default function Payment({ checkout, onBack, onNext, removeProduct, editA
   );
   if (pay && !paymentLoading) {
     paymentResult = pay.map((pp: any, idx: number) => (
-      <Grid key={idx} item xs={12} lg={4}>
-        <PaymentCard
+      <Grid key={idx} item xs={12} lg={12}>
+        {/* <PaymentCard
           key={pp.id}
           pay={pp}
           type={pp.cardBrand}
           paymentType={pp.type}
           cardHandler={(c: string) => setTokens(c)}
-        />
+        /> */}
       </Grid>
     ));
   } else if (paymentEmpty) {
@@ -278,7 +278,7 @@ export default function Payment({ checkout, onBack, onNext, removeProduct, editA
                   >
                     <Grid container spacing={2} alignItems="center">
                       {PaymentOptions.map((item: PaymentOptionsProps, index: number) => (
-                        <Grid item xs={12} sm={6} lg={6} key={index}>
+                        <Grid item xs={12} sm={12} lg={12} key={index}>
                           <PaymentSelect item={item} />
                         </Grid>
                       ))}
@@ -469,7 +469,7 @@ export default function Payment({ checkout, onBack, onNext, removeProduct, editA
               )}
 
               {/* Divider y render de tarjetas guardadas */}
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <Stack direction="row" spacing={0} alignItems="center">
                   <Grid item xs={6}>
                     <Divider />
@@ -479,7 +479,7 @@ export default function Payment({ checkout, onBack, onNext, removeProduct, editA
                     <Divider />
                   </Grid>
                 </Stack>
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12} sm={12} lg={10}>
                 <Grid container spacing={2}>
