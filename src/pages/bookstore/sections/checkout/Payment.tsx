@@ -107,7 +107,7 @@ export default function Payment({ checkout, onBack, onNext, removeProduct, editA
   const { showWarning, showError, showSuccess } = useSimpleSnackbar();
 
   // Estado local
-  const [payment, setPayment] = useState('paypal');// "paypal", "card", etc.
+  const [payment, setPayment] = useState('paypal'); // "paypal", "card", etc.
   const [tokens, setTokens] = useState(checkout.payment.token);
   const [open, setOpen] = useState(false);
   const [select, setSelect] = useState<Address | null>(null);
@@ -176,8 +176,8 @@ export default function Payment({ checkout, onBack, onNext, removeProduct, editA
   };
 
   // Determinar label del botón
-  const hasPayPalOrderId = tokens && tokens.length > 0; 
-  const buttonLabel = hasPayPalOrderId ? "Ver factura" : "Proceder al pago";
+  const hasPayPalOrderId = tokens && tokens.length > 0;
+  const buttonLabel = 'Elige método de pago' ;
 
   // Formik para tarjeta
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -455,9 +455,9 @@ export default function Payment({ checkout, onBack, onNext, removeProduct, editA
                           showError('No se obtuvo orderID desde PayPal');
                           return;
                         }
-                        onPayPalApprove(data.orderID); 
-                        setComplete(true);          
-                        onNext();             
+                        onPayPalApprove(data.orderID);
+                        setComplete(true);
+                        onNext();
                       }}
                       onError={(err) => {
                         console.error('Error en PayPal:', err);
@@ -576,7 +576,7 @@ export default function Payment({ checkout, onBack, onNext, removeProduct, editA
           <OrderSummary checkout={checkout} show={false} />
 
           {/* Botón con label dinámico según si hay 'tokens' */}
-          <Button variant="contained" sx={{ textTransform: 'none', mt: 3 }} onClick={completeHandler} fullWidth>
+          <Button variant="contained" sx={{ textTransform: 'none', mt: 3 }} onClick={completeHandler} fullWidth disabled={true}>
             {buttonLabel}
           </Button>
 
