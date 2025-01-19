@@ -5,7 +5,7 @@ import { SnackbarProvider, useSnackbar } from 'notistack';
 
 export const SimpleSnackbarProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+    <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
       {children}
     </SnackbarProvider>
   );
