@@ -12,12 +12,14 @@ export const AppRouter = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const validUserPaths = ["/home", "/product", "/checkout", "/my-books"]; // Añade todas las rutas válidas para USER
+  // Rutas válidas para usuarios y administradores
+  const validUserPaths = ["/home", "/product", "/checkout", "/my-books"];
+  const validAdminPaths = ["/a/dashboard", "/a/dashboard/usuarios"];
 
+  // Manejo de redirecciones basado en el rol y ruta actual
   useEffect(() => {
     if (status === "authenticated") {
       if (role === "USER") {
-        // Verifica si la ruta actual es válida para el rol USER
         const isValidUserPath = validUserPaths.some((path) =>
           location.pathname.startsWith(path)
         );
@@ -26,7 +28,11 @@ export const AppRouter = () => {
           navigate("/home", { replace: true });
         }
       } else if (role === "ADMIN") {
-        if (!location.pathname.startsWith("/a/")) {
+        const isValidAdminPath = validAdminPaths.some((path) =>
+          location.pathname.startsWith(path)
+        );
+
+        if (!isValidAdminPath) {
           navigate("/a/dashboard", { replace: true });
         }
       }

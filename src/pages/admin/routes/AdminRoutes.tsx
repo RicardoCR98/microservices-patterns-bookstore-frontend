@@ -9,7 +9,7 @@ export const AdminRoutes = () => {
       <Route path="/" element={<AdminLayout />}>
         {/* RUTA /a/dashboard */}
         <Route path="dashboard" element={<Dashboard />}>
-          {/* RUTA /a/dashboard/usuarios anidada dentro de Dashboard */}
+          {/* RUTA /a/dashboard/usuarios */}
           <Route path="usuarios" element={<UserManagement />} />
         </Route>
 
