@@ -26,15 +26,19 @@ const validationSchema = Yup.object({
 
     password: Yup.string()
     .required('La contraseña es obligatoria')
+    .matches(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,50}$/, 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número')
     .test('Sin espacios iniciales ni finales', 'La contraseña no puede comenzar ni terminar con espacios', (value) => value === value.trim())
 });
+
+// Ejemplo de contraseña mala
+// 12345678
 
 export const AuthRegister = () => {
   const [level, setLevel] = useState<StringColorProps>();
   const [showPassword, setShowPassword] = useState(false);
   const [captchaValue, setCaptchaValue] = React.useState<string | null>(null);
   const { registerUser } = useAuth();
-  const { showSuccess } = useSimpleSnackbar(); 
+  const { showError, showSuccess } = useSimpleSnackbar(); 
   const navigate = useNavigate();
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -73,7 +77,8 @@ export const AuthRegister = () => {
 
             // Redirige a la pantalla de login
             navigate("/auth/login");
-            // showSuccess('Usuario registrado con éxito');
+            // showError("El email ya está registrado");
+            showSuccess('Usuario registrado con éxito');
           } catch (error) {
             console.error("Error en el registro:", error);
           } finally {

@@ -135,7 +135,7 @@ export default function ProductInfo({ product }: { product: Products }) {
   return (
     <Stack spacing={1}>
       <Stack direction="row" spacing={1} alignItems="center">
-        <Rating
+        {/* <Rating
           name="simple-controlled"
           value={product.rating}
           icon={<StarFilled style={{ fontSize: 'inherit' }} />}
@@ -143,7 +143,7 @@ export default function ProductInfo({ product }: { product: Products }) {
           precision={0.1}
           readOnly
         />
-        <Typography color="text.secondary">({product.rating?.toFixed(1)})</Typography>
+        <Typography color="text.secondary">({product.rating?.toFixed(1)})</Typography> */}
       </Stack>
       <Stack direction="row" spacing={1}>
         <Typography variant="h3">{product.title}</Typography>

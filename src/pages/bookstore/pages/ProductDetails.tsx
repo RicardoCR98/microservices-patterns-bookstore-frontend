@@ -106,11 +106,11 @@ export default function ProductDetails() {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <MainCard>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={3}>
                 {productImages}
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={9}>
                 {product && <ProductInfo product={product} />}
               </Grid>
             </Grid>

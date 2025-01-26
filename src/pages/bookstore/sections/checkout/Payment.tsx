@@ -550,7 +550,7 @@ export default function Payment({ checkout, onBack, onNext, removeProduct, editA
                     }
                     secondary={
                       <Stack spacing={1}>
-                        <Typography color="text.secondary">{row.description}</Typography>
+                        {/* <Typography color="text.secondary">{row.description}</Typography> */}
                         <Stack direction="row" alignItems="center" spacing={3}>
                           <Typography>${row.offerPrice}</Typography>
                           <Typography color="text.secondary">{row.quantity} items</Typography>

@@ -27,6 +27,7 @@ import { ThemeMode } from 'src/config';
 
 // Imagen por defecto, si no hay portada
 import defaultImages from 'src/assets/images/users/default.png';
+import { useSimpleSnackbar } from '@components/SimpleSnackbarProvider';
 
 type BookFormProps = {
   initialValues: Products;
@@ -36,7 +37,7 @@ type BookFormProps = {
 
 const FormProductAdd: React.FC<BookFormProps> = ({ initialValues, onSubmit, closeModal }) => {
   const theme = useTheme();
-
+  const { showSuccess } = useSimpleSnackbar(); 
   // Validaciones con Yup
   const validationSchema = Yup.object({
     title: Yup.string().required('El título es requerido'),
@@ -74,6 +75,7 @@ const FormProductAdd: React.FC<BookFormProps> = ({ initialValues, onSubmit, clos
     onSubmit: (values) => {
       console.log('Formulario enviado con valores:', values);
       onSubmit(values);
+      showSuccess('Producto guardado correctamente');
     }
   });
 

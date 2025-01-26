@@ -24,7 +24,7 @@ import { KEY_CAPTCHA } from 'src/config';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useAuth } from '@hooks/auth/useAuth';
 import { AuthSocial } from './AuthSocial';
-import { useSimpleSnackbar } from '@components/SimpleSnackbarProvider';
+import { SimpleSnackbarProvider, useSimpleSnackbar } from '@components/SimpleSnackbarProvider';
 
 const validationSchema = Yup.object({
   password: Yup.string().max(50).required('La contraseña es obligatoria'),
@@ -40,7 +40,7 @@ export const AuthLogin = () => {
   const [checked, setChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { loginUser } = useAuth();
-const { showSuccess } = useSimpleSnackbar(); 
+// const { showSuccess, showError } = useSimpleSnackbar(); 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -62,6 +62,7 @@ const { showSuccess } = useSimpleSnackbar();
           const email = values.email.trim();
           const pass = values.password.trim();
           loginUser(email, pass);
+          // showError("Usuario se encuentra desactivado, por favor contacte al administrador");
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
